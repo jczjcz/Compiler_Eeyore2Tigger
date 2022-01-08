@@ -1,21 +1,21 @@
 v0 = 0
-v1 = malloc 40
+v1 = malloc 40                //分配40的空间 var 40 T1
 
-f_main [0] [0]
+f_main [0] [0]             //第一个括号是参数个数，第二个是栈空间的大小
   call f_getint
-  loadaddr v0 t0
-  t0[0] = a0
-  load v0 t0
-  t1 = 10
-  if t0 <= t1 goto l0
-  a0 = 1
+  loadaddr v0 t0              // 把a0的值赋给v0
+  t0[0] = a0                // v0 = a0    
+  load v0 t0              // 把v0的值给t0    t0 = v0 = a0    寄存器只能间接赋值为变量
+  t1 = 10                  // 寄存器可以直接赋值为常数
+  if t0 <= t1 goto l0          
+  a0 = 1       
   return
 l0:
-  s0 = 0
-  s1 = s0
+  s0 = 0            //寄存器赋值为常数
+  s1 = s0            // 寄存器赋值为寄存器
 l1:
-  load v0 t0
-  if s0 >= t0 goto l2
+  load v0 t0               //只能对寄存器进行比较，所以先把v0存入寄存器t0
+  if s0 >= t0 goto l2       // s0中存T2，
   call f_getint
   t0 = a0
   t1 = 4

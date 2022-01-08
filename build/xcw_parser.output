@@ -1,0 +1,169 @@
+Terminals unused in grammar
+
+   ADD
+   SUB
+   MUL
+   DIV
+   MOD
+   ASSIGN
+   EQ
+   NEQ
+   LE
+   LEQ
+   GE
+   GEQ
+   NOT
+   AND
+   OR
+   LBRAC
+   RBRAC
+   IF
+   GOTO
+   LABEL
+   PARAM
+   CALL
+   RETURN
+   COLON
+   FUNC
+   END
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 Program: ProgramUnit
+    2        | Program ProgramUnit
+
+    3 ProgramUnit: Declaration
+
+    4 Declaration: VAR IDENT
+    5            | VAR NUM IDENT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+ADD (258)
+SUB (259)
+MUL (260)
+DIV (261)
+MOD (262)
+ASSIGN (263)
+EQ (264)
+NEQ (265)
+LE (266)
+LEQ (267)
+GE (268)
+GEQ (269)
+NOT (270)
+AND (271)
+OR (272)
+NUM (273) 5
+IDENT (274) 4 5
+LBRAC (275)
+RBRAC (276)
+IF (277)
+GOTO (278)
+LABEL (279)
+PARAM (280)
+CALL (281)
+RETURN (282)
+COLON (283)
+VAR (284) 4 5
+FUNC (285)
+END (286)
+
+
+Nonterminals, with rules where they appear
+
+$accept (32)
+    on left: 0
+Program (33)
+    on left: 1 2, on right: 0 2
+ProgramUnit (34)
+    on left: 3, on right: 1 2
+Declaration (35)
+    on left: 4 5, on right: 3
+
+
+State 0
+
+    0 $accept: . Program $end
+
+    VAR  shift, and go to state 1
+
+    Program      go to state 2
+    ProgramUnit  go to state 3
+    Declaration  go to state 4
+
+
+State 1
+
+    4 Declaration: VAR . IDENT
+    5            | VAR . NUM IDENT
+
+    NUM    shift, and go to state 5
+    IDENT  shift, and go to state 6
+
+
+State 2
+
+    0 $accept: Program . $end
+    2 Program: Program . ProgramUnit
+
+    $end  shift, and go to state 7
+    VAR   shift, and go to state 1
+
+    ProgramUnit  go to state 8
+    Declaration  go to state 4
+
+
+State 3
+
+    1 Program: ProgramUnit .
+
+    $default  reduce using rule 1 (Program)
+
+
+State 4
+
+    3 ProgramUnit: Declaration .
+
+    $default  reduce using rule 3 (ProgramUnit)
+
+
+State 5
+
+    5 Declaration: VAR NUM . IDENT
+
+    IDENT  shift, and go to state 9
+
+
+State 6
+
+    4 Declaration: VAR IDENT .
+
+    $default  reduce using rule 4 (Declaration)
+
+
+State 7
+
+    0 $accept: Program $end .
+
+    $default  accept
+
+
+State 8
+
+    2 Program: Program ProgramUnit .
+
+    $default  reduce using rule 2 (Program)
+
+
+State 9
+
+    5 Declaration: VAR NUM IDENT .
+
+    $default  reduce using rule 5 (Declaration)
