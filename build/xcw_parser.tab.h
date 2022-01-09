@@ -76,8 +76,7 @@ extern int yydebug;
     RETURN = 282,
     COLON = 283,
     VAR = 284,
-    FUNC = 285,
-    END = 286
+    END = 285
   };
 #endif
 /* Tokens.  */
@@ -108,8 +107,7 @@ extern int yydebug;
 #define RETURN 282
 #define COLON 283
 #define VAR 284
-#define FUNC 285
-#define END 286
+#define END 285
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

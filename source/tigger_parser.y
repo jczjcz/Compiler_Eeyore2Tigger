@@ -16,7 +16,7 @@ void yyerror(const string&);
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
-extern int yylineno, charNum;
+extern int yylineno;
 
 ostream &out = cout;       // 用于输出
 
@@ -168,7 +168,7 @@ void IDENT_Assign(IDENT_scope* tmp1, string str2 ){    //区别全局变量和�
 %token ASSIGN EQ NEQ LE LEQ GE GEQ NOT AND OR
 %token NUM IDENT
 %token LBRAC RBRAC
-%token IF GOTO LABEL PARAM CALL RETURN COLON VAR FUNC END
+%token IF GOTO LABEL PARAM CALL RETURN COLON VAR END
 
 
 %%
@@ -292,7 +292,7 @@ FunctionDef:
 ; 
 
 FunctionHeader:
-    FUNC LBRAC NUM RBRAC
+    IDENT LBRAC NUM RBRAC
     {
         Func_stack_num = 0;
         Flag_def_out = 0;    //表示已经在函数内部
@@ -343,7 +343,7 @@ FunctionHeader:
 ;
 
 FunctionEnd:
-    END FUNC
+    END IDENT
     {
         other_out = "end " + (*ToStr($2));
         Func_Other.push_back(other_out);   //输出end
@@ -485,7 +485,7 @@ Expression:
         VAR_a_num ++;
         s_num = 1;
     }
-    | CALL FUNC
+    | CALL IDENT
     {
         VAR_a_num = 0;
         other_out = IF_DEEP() + "call " + (*ToStr($2));
@@ -506,7 +506,7 @@ Expression:
         Func_Other.push_back(other_out);
         s_num = 1;
     }
-    | IDENT ASSIGN CALL FUNC
+    | IDENT ASSIGN CALL IDENT
     {
         VAR_a_num = 0;
         other_out = IF_DEEP() + "call " + (*ToStr($4));
@@ -578,7 +578,7 @@ RightValue:
 %%
 
 void yyerror(const char *s) {
-    cout << "Line " << yylineno << "," << charNum << ": " << s << endl;
+    cout << "Line " << yylineno << ": " << s << endl;
     exit(1);
 }
 

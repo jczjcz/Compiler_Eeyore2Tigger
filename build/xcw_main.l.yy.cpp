@@ -371,8 +371,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 34
-#define YY_END_OF_BUFFER 35
+#define YY_NUM_RULES 32
+#define YY_END_OF_BUFFER 33
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -380,15 +380,15 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[69] =
+static const flex_int16_t yy_accept[64] =
     {   0,
-        0,    0,   35,   34,    1,    2,   31,   32,   34,   18,
-       16,   17,   19,   13,   15,   20,   26,   22,   34,   27,
-       28,   34,   34,   34,   34,   34,   34,   34,   34,   34,
-       34,   25,   29,   14,    0,   13,   21,   24,   23,   11,
-        0,    0,    0,    0,    3,   10,    0,    0,    0,   30,
-        0,   33,    0,    9,   12,    0,    0,    0,    5,    7,
-       12,    6,    0,    0,    8,    0,    4,    0
+        0,    0,   33,   32,    1,    2,   29,   30,   32,   16,
+       14,   15,   17,   12,   13,   18,   24,   20,   11,   25,
+       26,   11,   11,   11,   11,   11,   11,   11,   11,   32,
+       23,   27,    0,   12,   19,   22,   21,   11,   11,   11,
+       11,    3,   10,   11,   11,   11,   28,    0,   31,   11,
+        9,   11,   11,   11,    5,    7,    6,   11,   11,    8,
+       11,    4,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -401,12 +401,12 @@ static const YY_CHAR yy_ec[256] =
        12,   12,   12,   12,   12,   12,   12,   13,    1,   14,
        15,   16,    1,    1,   17,   17,   17,   17,   17,   17,
        17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
-       17,   17,   17,   18,   17,   17,   17,   17,   17,   17,
-       19,    1,   20,    1,   21,    1,   22,   17,   23,   24,
+       17,   17,   17,   17,   17,   17,   17,   17,   17,   17,
+       18,    1,   19,    1,   17,    1,   20,   17,   21,   22,
 
-       25,   26,   27,   17,   28,   17,   17,   29,   30,   31,
-       32,   33,   17,   34,   17,   35,   36,   37,   17,   17,
-       17,   17,    1,   38,    1,    1,    1,    1,    1,    1,
+       23,   24,   25,   17,   26,   17,   17,   27,   28,   29,
+       30,   31,   17,   32,   17,   33,   34,   35,   17,   17,
+       17,   17,    1,   36,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -423,79 +423,73 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[39] =
+static const YY_CHAR yy_meta[37] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    3,    3,    1,    1,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    1
+        1,    2,    1,    1,    1,    1,    2,    1,    1,    2,
+        2,    2,    2,    2,    2,    2,    2,    2,    2,    2,
+        2,    2,    2,    2,    2,    1
     } ;
 
-static const flex_int16_t yy_base[72] =
+static const flex_int16_t yy_base[66] =
     {   0,
-        0,    0,   84,   85,   85,   85,   68,   85,   75,   85,
-       85,   69,   69,   67,   85,   63,   62,   61,   63,   85,
-       85,   52,   42,   51,   39,   44,   57,   27,   43,   45,
-       28,   85,   85,   53,   61,   51,   85,   85,   85,   50,
-       32,   36,    0,   24,   85,   46,   23,   21,   21,   85,
-       45,   85,   18,   85,    0,   14,   23,    8,   85,   85,
-        0,   85,   13,    8,   85,   10,   85,   85,   49,   37,
-       51
+        0,    0,   73,   74,   74,   74,   57,   74,   64,   74,
+       74,   74,   59,   57,   74,   53,   52,   51,    0,   74,
+       74,   45,   35,   33,   38,   49,   40,   36,   38,   21,
+       74,   74,   53,   43,   74,   74,   74,    0,   27,   31,
+       19,    0,   39,   18,   16,   16,   74,   44,   74,   19,
+        0,   15,   24,    9,    0,    0,    0,   14,    9,    0,
+       11,    0,   74,   37,   36
     } ;
 
-static const flex_int16_t yy_def[72] =
+static const flex_int16_t yy_def[66] =
     {   0,
-       68,    1,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   69,   68,   68,   68,   68,   68,
-       68,   68,   70,   68,   68,   68,   68,   68,   68,   68,
-       69,   68,   68,   68,   71,   68,   68,   68,   68,   68,
-       71,   68,   68,   68,   68,   68,   68,    0,   68,   68,
-       68
+       63,    1,   63,   63,   63,   63,   63,   63,   63,   63,
+       63,   63,   63,   63,   63,   63,   63,   63,   64,   63,
+       63,   64,   64,   64,   64,   64,   64,   64,   64,   63,
+       63,   63,   65,   63,   63,   63,   63,   64,   64,   64,
+       64,   64,   64,   64,   64,   64,   63,   65,   63,   64,
+       64,   64,   64,   64,   64,   64,   64,   64,   64,   64,
+       64,   64,    0,   63,   63
     } ;
 
-static const flex_int16_t yy_nxt[124] =
+static const flex_int16_t yy_nxt[111] =
     {   0,
         4,    5,    6,    6,    7,    8,    9,   10,   11,   12,
-       13,   14,   15,   16,   17,   18,    4,   19,   20,   21,
-        4,    4,   22,    4,   23,   24,   25,   26,   27,    4,
-        4,    4,   28,   29,   19,    4,   30,   31,   40,   55,
-       67,   66,   65,   64,   63,   62,   60,   52,   47,   51,
-       51,   51,   61,   61,   59,   58,   57,   46,   56,   54,
-       53,   40,   36,   52,   34,   50,   49,   48,   46,   45,
-       44,   43,   42,   41,   40,   39,   38,   37,   36,   35,
-       34,   33,   32,   68,    3,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
+       13,   14,   15,   16,   17,   18,   19,   20,   21,   19,
+       22,   19,   23,   19,   24,   25,   26,   19,   19,   19,
+       27,   28,   19,   19,   29,   30,   48,   48,   38,   62,
+       61,   60,   59,   58,   57,   56,   49,   55,   54,   53,
+       43,   52,   51,   50,   34,   49,   47,   46,   45,   44,
+       43,   42,   41,   40,   39,   37,   36,   35,   34,   33,
+       32,   31,   63,    3,   63,   63,   63,   63,   63,   63,
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
 
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63
     } ;
 
-static const flex_int16_t yy_chk[124] =
+static const flex_int16_t yy_chk[111] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,   28,   70,
-       66,   64,   63,   58,   57,   56,   53,   51,   28,   69,
-       69,   69,   71,   71,   49,   48,   47,   46,   44,   42,
-       41,   40,   36,   35,   34,   31,   30,   29,   27,   26,
-       25,   24,   23,   22,   19,   18,   17,   16,   14,   13,
-       12,    9,    7,    3,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
+        1,    1,    1,    1,    1,    1,   65,   65,   64,   61,
+       59,   58,   54,   53,   52,   50,   48,   46,   45,   44,
+       43,   41,   40,   39,   34,   33,   30,   29,   28,   27,
+       26,   25,   24,   23,   22,   18,   17,   16,   14,   13,
+        9,    7,    3,   63,   63,   63,   63,   63,   63,   63,
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63,
 
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68,   68,   68,   68,   68,   68,   68,   68,
-       68,   68,   68
+       63,   63,   63,   63,   63,   63,   63,   63,   63,   63
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[35] =
+static const flex_int32_t yy_rule_can_match_eol[33] =
     {   0,
 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -519,9 +513,8 @@ char *yytext;
 #include <cstring>
 #include "xcw_parser.tab.h"
 using namespace std;
-int charNum = 1;
-#line 524 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
-#line 525 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 517 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 518 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
 #define INITIAL 0
 
@@ -738,9 +731,9 @@ YY_DECL
 		}
 
 	{
-#line 18 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 12 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 
-#line 744 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 737 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -767,13 +760,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 69 )
+				if ( yy_current_state >= 64 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 85 );
+		while ( yy_base[yy_current_state] != 74 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -809,199 +802,178 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng;}
+#line 13 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 20 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum = 1;}
+#line 14 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return IF;}
+#line 15 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return IF;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return RETURN;}
+#line 16 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return RETURN;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return VAR;}
+#line 17 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return VAR;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return GOTO;}
+#line 18 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return GOTO;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return CALL;}
+#line 19 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return CALL;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return PARAM;}
+#line 20 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return PARAM;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += yyleng; return END;}
+#line 21 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return END;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 23 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
-    charNum += yyleng;
     yylval = new string(yytext);
     return LABEL;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 33 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 27 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
-    charNum += yyleng;
     yylval = new string(yytext);
     return IDENT;
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 38 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 31 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
-    charNum += yyleng;
-    yylval = new string(yytext);
-    return FUNC;
+    yylval = new int(strtol(yytext, nullptr, 10));
+    return NUM;
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 43 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{
-    charNum += yyleng;
-    yylval = new int(strtol(yytext, nullptr, 10));
-    return NUM;
-}
+#line 36 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{return COLON;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 48 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{
-    charNum += yyleng;
-    yylval = new int(strtol(yytext, nullptr, 10));
-    return NUM;
-}
+#line 37 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{yylval = new string("+");return ADD;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 53 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return COLON;}
+#line 38 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{yylval = new string("-");return SUB;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 54 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("+");return ADD;}
+#line 39 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("*");return MUL;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 55 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("-");return SUB;}
+#line 40 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("/");return DIV;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 56 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("*");return MUL;}
+#line 41 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("<");return LE;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 57 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("/");return DIV;}
+#line 42 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("<=");return LEQ;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 58 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("<");return LE;}
+#line 43 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string(">");return GE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 59 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string("<=");return LEQ;}
+#line 44 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string(">=");return GEQ;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 60 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string(">");return GE;}
+#line 45 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("==");return EQ;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 61 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string(">=");return GEQ;}
+#line 46 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("!=");return NEQ;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 62 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string("==");return EQ;}
+#line 47 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("=");return ASSIGN;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 63 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string("!=");return NEQ;}
+#line 48 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return LBRAC;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 64 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("=");return ASSIGN;}
+#line 49 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ return RBRAC;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 65 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return LBRAC;}
+#line 50 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("&&");return AND;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 66 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return RBRAC;}
+#line 51 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("||");return OR;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 67 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string("&&");return AND;}
+#line 52 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("!"); return NOT;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 68 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; yylval = new string("||");return OR;}
+#line 53 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+{ yylval = new string("%");return MOD;}
 	YY_BREAK
 case 31:
-YY_RULE_SETUP
-#line 69 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("!"); return NOT;}
-	YY_BREAK
-case 32:
-YY_RULE_SETUP
-#line 70 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; yylval = new string("%");return MOD;}
-	YY_BREAK
-case 33:
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 72 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 55 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {/* Single line comment */}
 	YY_BREAK
-case 34:
+case 32:
 YY_RULE_SETUP
-#line 73 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 56 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 ECHO;
 	YY_BREAK
-#line 1005 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 977 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1298,7 +1270,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 69 )
+			if ( yy_current_state >= 64 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1326,11 +1298,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 69 )
+		if ( yy_current_state >= 64 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 68);
+	yy_is_jam = (yy_current_state == 63);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2018,7 +1990,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 56 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 
 
 int yywrap() {
