@@ -32,6 +32,10 @@ l[0-9]+   {
     yylval = new int(strtol(yytext, nullptr, 10));
     return NUM;
 }
+"-"[0-9]+ {
+    yylval = new int(strtol(yytext, nullptr, 10));
+    return NUM;
+}
 
 ":"     {return COLON;}
 "+"     {yylval = new string("+");return ADD;}

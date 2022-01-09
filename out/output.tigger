@@ -1,404 +1,221 @@
-f_main [0] [50]
-	s1 = 0
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 4
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 8
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 12
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 16
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 20
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 24
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 28
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 32
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 36
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 40
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 44
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 48
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 52
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 56
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 60
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 64
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 68
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 72
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 76
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 80
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 84
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 88
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 92
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 96
-	s2 = 0
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 0
-	s2 = 1
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 4
-	s2 = 1
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 8
-	s2 = 1
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 12
-	s2 = 1
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 16
-	s2 = 1
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 20
-	s2 = 2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 24
-	s2 = 2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 28
-	s2 = 2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 32
-	s2 = 2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 36
-	s2 = 2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 40
-	s2 = 3
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 44
-	s2 = 3
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 48
-	s2 = 3
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 52
-	s2 = 3
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 56
-	s2 = 3
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 60
-	s2 = 4
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 64
-	s2 = 4
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 68
-	s2 = 4
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 72
-	s2 = 4
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 76
-	s2 = 4
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 80
-	s2 = 5
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 84
-	s2 = 5
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 88
-	s2 = 5
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 92
-	s2 = 5
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 96
-	s2 = 5
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	s1 = 0
-	store s1 25
-	s1 = 0
-	store s1 26
-	s1 = 0
-	store s1 27
-	s1 = 0
-	store s1 28
-	s1 = 2
-	store s1 25
-	s1 = 3
-	store s1 26
-	s1 = 0
-	store s1 28
-	l2:
-	load 28 s1
-	s2 = 5
-	s0 = s1 < s2
-	store s0 29
-	load 29 s1
-	s2 = 0
-	if s1 == s2 goto l4
-	goto l0
-	l4:
-	goto l1
+v0 = 0
+f_insertsort [1] [26]
+	store a0 0
+	s1 = 1
+	store s1 1
 	l0:
-	load 25 s1
-	s2 = 1
-	s0 = s1 - s2
-	store s0 30
+	load 1 s1
+	load v0 s2
+	if s1 >= s2 goto l1
+	s1 = 4
+	load 1 s2
+	s0 = s1 * s2
+	store s0 5
+	load 0 s1
+	load 5 s2
+	s0 = s1 + s2
+	store s0 6
 	s1 = 0
-	store s1 31
-	load 30 s1
-	s2 = 20
-	s0 = s1 * s2
-	store s0 32
-	load 31 s1
-	load 32 s2
-	s0 = s1 + s2
-	store s0 31
-	load 28 s1
-	s2 = 4
-	s0 = s1 * s2
-	store s0 33
-	load 31 s1
-	load 33 s2
-	s0 = s1 + s2
-	store s0 31
-	load 31 s1
-	loadaddr 0 s2
+	load 6 s2
 	s2 = s2 + s1
 	s0 = s2[0]
-	store s0 34
-	load 34 s1
-	store s1 27
-	load 25 s1
+	store s0 4
+	load 4 s1
+	store s1 3
+	load 1 s1
 	s2 = 1
 	s0 = s1 - s2
-	store s0 35
+	store s0 7
+	l2:
 	s1 = 0
-	store s1 36
-	load 35 s1
-	s2 = 20
+	store s1 9
+	load 7 s1
+	s2 = -1
+	if s1 <= s2 goto l4
+	s1 = 4
+	load 7 s2
 	s0 = s1 * s2
-	store s0 37
-	load 36 s1
-	load 37 s2
+	store s0 13
+	load 0 s1
+	load 13 s2
 	s0 = s1 + s2
-	store s0 36
-	load 28 s1
-	s2 = 4
-	s0 = s1 * s2
-	store s0 38
-	load 36 s1
-	load 38 s2
-	s0 = s1 + s2
-	store s0 36
-	load 26 s1
-	s2 = 1
-	s0 = s1 - s2
-	store s0 39
+	store s0 14
 	s1 = 0
-	store s1 40
-	load 39 s1
-	s2 = 20
-	s0 = s1 * s2
-	store s0 41
-	load 40 s1
-	load 41 s2
-	s0 = s1 + s2
-	store s0 40
-	load 28 s1
-	s2 = 4
-	s0 = s1 * s2
-	store s0 42
-	load 40 s1
-	load 42 s2
-	s0 = s1 + s2
-	store s0 40
-	load 40 s1
-	loadaddr 0 s2
+	load 14 s2
 	s2 = s2 + s1
 	s0 = s2[0]
-	store s0 43
-	load 36 s1
-	load 43 s2
-	loadaddr 0 s0
+	store s0 12
+	load 3 s1
+	load 12 s2
+	if s1 >= s2 goto l4
+	s1 = 1
+	store s1 9
+	l4:
+	load 9 s1
+	s2 = 0
+	if s1 == s2 goto l3
+	s1 = 4
+	load 7 s2
+	s0 = s1 * s2
+	store s0 16
+	load 0 s1
+	load 16 s2
+	s0 = s1 + s2
+	store s0 17
+	s1 = 0
+	load 17 s2
+	s2 = s2 + s1
+	s0 = s2[0]
+	store s0 15
+	load 7 s1
+	s2 = 1
+	s0 = s1 + s2
+	store s0 19
+	s1 = 4
+	load 19 s2
+	s0 = s1 * s2
+	store s0 18
+	load 0 s1
+	load 18 s2
+	s0 = s1 + s2
+	store s0 20
+	s1 = 0
+	load 15 s2
+	load 20 s0
 	s0 = s0 + s1
 	s0[0] = s2
-	load 26 s1
+	load 7 s1
 	s2 = 1
 	s0 = s1 - s2
-	store s0 44
-	s1 = 0
-	store s1 45
-	load 44 s1
-	s2 = 20
-	s0 = s1 * s2
-	store s0 46
-	load 45 s1
-	load 46 s2
-	s0 = s1 + s2
-	store s0 45
-	load 28 s1
-	s2 = 4
-	s0 = s1 * s2
-	store s0 47
-	load 45 s1
-	load 47 s2
-	s0 = s1 + s2
-	store s0 45
-	load 45 s1
-	load 27 s2
-	loadaddr 0 s0
-	s0 = s0 + s1
-	s0[0] = s2
-	load 28 s1
-	s2 = 1
-	s0 = s1 + s2
-	store s0 48
-	load 48 s1
-	store s1 28
+	store s0 7
 	goto l2
+	l3:
+	load 7 s1
+	s2 = 1
+	s0 = s1 + s2
+	store s0 23
+	s1 = 4
+	load 23 s2
+	s0 = s1 * s2
+	store s0 22
+	load 0 s1
+	load 22 s2
+	s0 = s1 + s2
+	store s0 24
+	s1 = 0
+	load 3 s2
+	load 24 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	load 1 s1
+	s2 = 1
+	s0 = s1 + s2
+	store s0 1
+	goto l0
 	l1:
-	s1 = 40
-	loadaddr 0 s2
+	s1 = 0
+	a0 = s1
+	return
+	s1 = 0
+	a0 = s1
+	return
+end f_insertsort
+f_main [0] [19]
+	s1 = 10
+	loadaddr v0 s2
+	s2[0] = s1
+	s1 = 0
+	s2 = 4
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 4
+	s2 = 3
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 8
+	s2 = 9
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 12
+	s2 = 2
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 16
+	s2 = 0
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 20
+	s2 = 1
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 24
+	s2 = 6
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 28
+	s2 = 5
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 32
+	s2 = 7
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	s1 = 36
+	s2 = 8
+	loadaddr 0 s0
+	s0 = s0 + s1
+	s0[0] = s2
+	loadaddr 0 s1
+	s2 = 0
+	s0 = s1 + s2
+	store s0 12
+	load 12 s1
+	a0 = s1
+	call f_insertsort
+	store a0 10
+	l5:
+	load 10 s1
+	load v0 s2
+	if s1 >= s2 goto l6
+	s1 = 4
+	load 10 s2
+	s0 = s1 * s2
+	store s0 16
+	loadaddr 0 s1
+	load 16 s2
+	s0 = s1 + s2
+	store s0 17
+	s1 = 0
+	load 17 s2
 	s2 = s2 + s1
 	s0 = s2[0]
-	store s0 49
-	load 49 s1
+	store s0 15
+	load 15 s1
+	store s1 14
+	load 14 s1
+	a0 = s1
+	call f_putint
+	s1 = 10
+	store s1 14
+	load 14 s1
+	a0 = s1
+	call f_putch
+	load 10 s1
+	s2 = 1
+	s0 = s1 + s2
+	store s0 10
+	goto l5
+	l6:
+	s1 = 0
 	a0 = s1
 	return
 	s1 = 0
