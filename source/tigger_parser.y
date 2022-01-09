@@ -147,7 +147,7 @@ int s_num = 1;    // 始终保留s0用于最后的返回
 int VAR_a_num = 0;    // 函数参数寄存器
 
 
-void IDENT_Assign(IDENT_scope* tmp1, string str2 ){
+void IDENT_Assign(IDENT_scope* tmp1, string str2 ){    //区别全局变量和局部变量
     // ass_num用于处理给数组赋值的情况
     if(tmp1->IF_Global == 0 && tmp1->IDENT_if_array == 0 ){ // 非数组的局部变量
         other_out = IF_DEEP() + "store " + str2 + " " + tmp1->IR_name;
@@ -235,7 +235,7 @@ Declaration:
             tmp_ptr->IDENT_if_array = 1;
             tmp_ptr->IF_Global = 0;
             tmp_ptr->IR_name = to_string(Stack_Func_size);
-            Stack_Func_size += tmp_ptr->Array_size;    //函数需要的栈空间 + 1
+            Stack_Func_size += (tmp_ptr->Array_size/4);    //函数需要的栈空间 + 1
             Scope.push_back(*tmp_ptr);
             // out << "in else " + *(ToStr($3)) << endl;
         }
@@ -416,8 +416,15 @@ Expression:
     | IDENT LBRAC RightValue RBRAC ASSIGN RightValue
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
-        other_out = IF_DEEP() + "loadaddr " + tmp_ptr1->IR_name + " s0";
-        Func_Other.push_back(other_out);
+        if(tmp_ptr1->IDENT_if_array){
+            other_out = IF_DEEP() + "loadaddr " + tmp_ptr1->IR_name + " s0";
+            Func_Other.push_back(other_out);
+        }
+        else{
+            other_out = IF_DEEP() + "load " + tmp_ptr1->IR_name + " s0";
+            Func_Other.push_back(other_out);
+        }
+        
 
         other_out = IF_DEEP() + "s0 = s0 + " + (*(ToStr($3)));
         Func_Other.push_back(other_out);

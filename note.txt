@@ -1,71 +1,126 @@
-// BEGIN EEYORE
-//--- GLOBAL DECL
-
-//--- GLOBAL INIT
-
-//--- FUNCTIONS
-f_climbStairs [1]
-var t0
-var 40 T0 // local: dp
-var T1 // local: i
-var t1
-var t2
-var t3
-var t4
-var t5
-var t6
-var t7
-var t8
-var t9
-var t10
-var t11
-var t12
-var t13
-var t14
-var t15
-var t16
-var t17
-    if p0 >= 4 goto l0 // stmt: ifonly
-    return p0
-    l0: // stmt: ifonly - lskip
-    T0 [0] = 0
-    T0 [4] = 1
-    T0 [8] = 2
-    T1 = 3
-    l1: // stmt: while - ltest
-    t2 = p0 + 1
-    if T1 >= t2 goto l2 // stmt: while - done
-    t6 = T1 - 1
-    t5 = 4 * t6
-    t7 = T0 + t5
-    t4 = t7 [0]
-    t10 = T1 - 2
-    t9 = 4 * t10
-    t11 = T0 + t9
-    t8 = t11 [0]
-    t3 = t4 + t8
-    t12 = 4 * T1
-    t13 = T0 + t12
-    t13 [0] = t3
-    T1 = T1 + 1
-    goto l1 // stmt: while - to test
-    l2: // stmt: while - ldone
-    t16 = 4 * p0
-    t17 = T0 + t16
-    t15 = t17 [0]
-    return t15
-    return 0 // stmt: func epilog
+f_climbStairs [1] [30]
+store a0 0
+load 0 s1
+s2 = 4
+if s1 >= s2 goto l0
+load 0 s1
+a0 = s1
+return
+l0:
+s1 = 0
+s2 = 0
+loadaddr 2 s0
+s0 = s0 + s1
+s0[0] = s2
+s1 = 4
+s2 = 1
+loadaddr 2 s0
+s0 = s0 + s1
+s0[0] = s2
+s1 = 8
+s2 = 2
+loadaddr 2 s0
+s0 = s0 + s1
+s0[0] = s2
+s1 = 3
+store s1 12
+l1:
+load 0 s1
+s2 = 1
+s0 = s1 + s2
+store s0 14
+load 12 s1
+load 14 s2
+if s1 >= s2 goto l2
+load 12 s1
+s2 = 1
+s0 = s1 - s2
+store s0 18
+s1 = 4
+load 18 s2
+s0 = s1 * s2
+store s0 17
+loadaddr 2 s1
+load 17 s2
+s0 = s1 + s2
+store s0 19
+s1 = 0
+load 19 s2
+s2 = s2 + s1
+s0 = s2[0]
+store s0 16
+load 12 s1
+s2 = 2
+s0 = s1 - s2
+store s0 22
+s1 = 4
+load 22 s2
+s0 = s1 * s2
+store s0 21
+loadaddr 2 s1
+load 21 s2
+s0 = s1 + s2
+store s0 23
+s1 = 0
+load 23 s2
+s2 = s2 + s1
+s0 = s2[0]
+store s0 20
+load 16 s1
+load 20 s2
+s0 = s1 + s2
+store s0 15
+s1 = 4
+load 12 s2
+s0 = s1 * s2
+store s0 24
+loadaddr 2 s1
+load 24 s2
+s0 = s1 + s2
+store s0 25
+s1 = 0
+load 15 s2
+load 25 s0
+s0 = s0 + s1
+s0[0] = s2
+load 12 s1
+s2 = 1
+s0 = s1 + s2
+store s0 12
+goto l1
+l2:
+s1 = 4
+load 0 s2
+s0 = s1 * s2
+store s0 28
+loadaddr 2 s1
+load 28 s2
+s0 = s1 + s2
+store s0 29
+s1 = 0
+load 29 s2
+s2 = s2 + s1
+s0 = s2[0]
+store s0 27
+load 27 s1
+a0 = s1
+return
+s1 = 0
+a0 = s1
+return
 end f_climbStairs
-
-f_main [0]
-var T2 // local: res
-var T3 // local: n
-var t18
-    T3 = 5
-    param T3 // #0
-    T2 = call f_climbStairs
-    return T2
-    return 0 // stmt: func epilog
+f_main [0] [3]
+s1 = 5
+store s1 1
+load 1 s1
+a0 = s1
+call f_climbStairs
+s0 = a0
+store s0 0
+load 0 s1
+a0 = s1
+return
+s1 = 0
+a0 = s1
+return
 end f_main
-
-// END EEYORE
