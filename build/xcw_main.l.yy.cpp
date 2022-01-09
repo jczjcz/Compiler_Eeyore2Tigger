@@ -906,57 +906,57 @@ YY_RULE_SETUP
 case 16:
 YY_RULE_SETUP
 #line 54 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return ADD;}
+{++charNum; yylval = new string("+");return ADD;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 55 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return SUB;}
+{++charNum; yylval = new string("-");return SUB;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 56 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return MUL;}
+{++charNum; yylval = new string("*");return MUL;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 57 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return DIV;}
+{++charNum; yylval = new string("/");return DIV;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 58 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return LE;}
+{++charNum; yylval = new string("<");return LE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 59 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return LEQ;}
+{charNum += 2; yylval = new string("<=");return LEQ;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 60 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return GE;}
+{++charNum; yylval = new string(">");return GE;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 61 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return GEQ;}
+{charNum += 2; yylval = new string(">=");return GEQ;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 62 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return EQ;}
+{charNum += 2; yylval = new string("==");return EQ;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 63 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return NEQ;}
+{charNum += 2; yylval = new string("!=");return NEQ;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 64 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return ASSIGN;}
+{++charNum; yylval = new string("=");return ASSIGN;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
@@ -971,22 +971,22 @@ YY_RULE_SETUP
 case 29:
 YY_RULE_SETUP
 #line 67 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return AND;}
+{charNum += 2; yylval = new string("&&");return AND;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 68 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{charNum += 2; return OR;}
+{charNum += 2; yylval = new string("||");return OR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 69 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return NOT;}
+{++charNum; yylval = new string("!"); return NOT;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 70 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-{++charNum; return MOD;}
+{++charNum; yylval = new string("%");return MOD;}
 	YY_BREAK
 case 33:
 *yy_cp = (yy_hold_char); /* undo effects of setting up yytext */

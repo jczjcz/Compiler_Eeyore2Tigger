@@ -1,0 +1,12 @@
+
+RightValue:
+    IDENT
+    {
+        Ptr_num* tmp_ptr = new Ptr_num(*(ToStr($1)));
+        $$ = (void*)(tmp_ptr);
+    }
+    | NUM
+    {
+        Ptr_num* tmp_ptr = new Ptr_num(*(ToInt($1)));
+        $$ = (void*)(tmp_ptr);
+    }

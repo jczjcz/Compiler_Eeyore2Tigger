@@ -1,17 +1,6 @@
 Terminals unused in grammar
 
-   ADD
-   SUB
-   MUL
-   DIV
    MOD
-   EQ
-   NEQ
-   LE
-   LEQ
-   GE
-   GEQ
-   NOT
    AND
    OR
    IF
@@ -52,31 +41,51 @@ Grammar
    15 Statement: Declaration
    16          | Expression
 
-   17 Expression: IDENT ASSIGN NUM
-   18           | IDENT ASSIGN IDENT
+   17 Expression: IDENT ASSIGN RightValue
+   18           | IDENT ASSIGN OP RightValue
+   19           | IDENT ASSIGN RightValue BinOp RightValue
+
+   20 BinOp: OP
+   21      | LOGICOP
+
+   22 OP: NOT
+   23   | ADD
+   24   | SUB
+   25   | MUL
+   26   | DIV
+
+   27 LOGICOP: LE
+   28        | LEQ
+   29        | GE
+   30        | GEQ
+   31        | EQ
+   32        | NEQ
+
+   33 RightValue: IDENT
+   34           | NUM
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-ADD (258)
-SUB (259)
-MUL (260)
-DIV (261)
+ADD (258) 23
+SUB (259) 24
+MUL (260) 25
+DIV (261) 26
 MOD (262)
-ASSIGN (263) 8 9 17 18
-EQ (264)
-NEQ (265)
-LE (266)
-LEQ (267)
-GE (268)
-GEQ (269)
-NOT (270)
+ASSIGN (263) 8 9 17 18 19
+EQ (264) 31
+NEQ (265) 32
+LE (266) 27
+LEQ (267) 28
+GE (268) 29
+GEQ (269) 30
+NOT (270) 22
 AND (271)
 OR (272)
-NUM (273) 7 8 9 11 17
-IDENT (274) 6 7 8 9 17 18
+NUM (273) 7 8 9 11 34
+IDENT (274) 6 7 8 9 17 18 19 33
 LBRAC (275) 9 11
 RBRAC (276) 9 11
 IF (277)
@@ -114,7 +123,15 @@ Statements (40)
 Statement (41)
     on left: 15 16, on right: 13 14
 Expression (42)
-    on left: 17 18, on right: 16
+    on left: 17 18 19, on right: 16
+BinOp (43)
+    on left: 20 21, on right: 19
+OP (44)
+    on left: 22 23 24 25 26, on right: 18 20
+LOGICOP (45)
+    on left: 27 28 29 30 31 32, on right: 21
+RightValue (46)
+    on left: 33 34, on right: 17 18 19
 
 
 State 0
@@ -267,8 +284,9 @@ State 16
 
 State 17
 
-   17 Expression: IDENT . ASSIGN NUM
-   18           | IDENT . ASSIGN IDENT
+   17 Expression: IDENT . ASSIGN RightValue
+   18           | IDENT . ASSIGN OP RightValue
+   19           | IDENT . ASSIGN RightValue BinOp RightValue
 
     ASSIGN  shift, and go to state 26
 
@@ -339,18 +357,27 @@ State 25
 
 State 26
 
-   17 Expression: IDENT ASSIGN . NUM
-   18           | IDENT ASSIGN . IDENT
+   17 Expression: IDENT ASSIGN . RightValue
+   18           | IDENT ASSIGN . OP RightValue
+   19           | IDENT ASSIGN . RightValue BinOp RightValue
 
-    NUM    shift, and go to state 32
-    IDENT  shift, and go to state 33
+    ADD    shift, and go to state 32
+    SUB    shift, and go to state 33
+    MUL    shift, and go to state 34
+    DIV    shift, and go to state 35
+    NOT    shift, and go to state 36
+    NUM    shift, and go to state 37
+    IDENT  shift, and go to state 38
+
+    OP          go to state 39
+    RightValue  go to state 40
 
 
 State 27
 
    12 FunctionEnd: END . FUNC
 
-    FUNC  shift, and go to state 34
+    FUNC  shift, and go to state 41
 
 
 State 28
@@ -371,7 +398,7 @@ State 30
 
     9 Initialization: IDENT LBRAC NUM RBRAC . ASSIGN NUM
 
-    ASSIGN  shift, and go to state 35
+    ASSIGN  shift, and go to state 42
 
 
 State 31
@@ -383,34 +410,183 @@ State 31
 
 State 32
 
-   17 Expression: IDENT ASSIGN NUM .
+   23 OP: ADD .
 
-    $default  reduce using rule 17 (Expression)
+    $default  reduce using rule 23 (OP)
 
 
 State 33
 
-   18 Expression: IDENT ASSIGN IDENT .
+   24 OP: SUB .
 
-    $default  reduce using rule 18 (Expression)
+    $default  reduce using rule 24 (OP)
 
 
 State 34
+
+   25 OP: MUL .
+
+    $default  reduce using rule 25 (OP)
+
+
+State 35
+
+   26 OP: DIV .
+
+    $default  reduce using rule 26 (OP)
+
+
+State 36
+
+   22 OP: NOT .
+
+    $default  reduce using rule 22 (OP)
+
+
+State 37
+
+   34 RightValue: NUM .
+
+    $default  reduce using rule 34 (RightValue)
+
+
+State 38
+
+   33 RightValue: IDENT .
+
+    $default  reduce using rule 33 (RightValue)
+
+
+State 39
+
+   18 Expression: IDENT ASSIGN OP . RightValue
+
+    NUM    shift, and go to state 37
+    IDENT  shift, and go to state 38
+
+    RightValue  go to state 43
+
+
+State 40
+
+   17 Expression: IDENT ASSIGN RightValue .
+   19           | IDENT ASSIGN RightValue . BinOp RightValue
+
+    ADD  shift, and go to state 32
+    SUB  shift, and go to state 33
+    MUL  shift, and go to state 34
+    DIV  shift, and go to state 35
+    EQ   shift, and go to state 44
+    NEQ  shift, and go to state 45
+    LE   shift, and go to state 46
+    LEQ  shift, and go to state 47
+    GE   shift, and go to state 48
+    GEQ  shift, and go to state 49
+    NOT  shift, and go to state 36
+
+    $default  reduce using rule 17 (Expression)
+
+    BinOp    go to state 50
+    OP       go to state 51
+    LOGICOP  go to state 52
+
+
+State 41
 
    12 FunctionEnd: END FUNC .
 
     $default  reduce using rule 12 (FunctionEnd)
 
 
-State 35
+State 42
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN . NUM
 
-    NUM  shift, and go to state 36
+    NUM  shift, and go to state 53
 
 
-State 36
+State 43
+
+   18 Expression: IDENT ASSIGN OP RightValue .
+
+    $default  reduce using rule 18 (Expression)
+
+
+State 44
+
+   31 LOGICOP: EQ .
+
+    $default  reduce using rule 31 (LOGICOP)
+
+
+State 45
+
+   32 LOGICOP: NEQ .
+
+    $default  reduce using rule 32 (LOGICOP)
+
+
+State 46
+
+   27 LOGICOP: LE .
+
+    $default  reduce using rule 27 (LOGICOP)
+
+
+State 47
+
+   28 LOGICOP: LEQ .
+
+    $default  reduce using rule 28 (LOGICOP)
+
+
+State 48
+
+   29 LOGICOP: GE .
+
+    $default  reduce using rule 29 (LOGICOP)
+
+
+State 49
+
+   30 LOGICOP: GEQ .
+
+    $default  reduce using rule 30 (LOGICOP)
+
+
+State 50
+
+   19 Expression: IDENT ASSIGN RightValue BinOp . RightValue
+
+    NUM    shift, and go to state 37
+    IDENT  shift, and go to state 38
+
+    RightValue  go to state 54
+
+
+State 51
+
+   20 BinOp: OP .
+
+    $default  reduce using rule 20 (BinOp)
+
+
+State 52
+
+   21 BinOp: LOGICOP .
+
+    $default  reduce using rule 21 (BinOp)
+
+
+State 53
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN NUM .
 
     $default  reduce using rule 9 (Initialization)
+
+
+State 54
+
+   19 Expression: IDENT ASSIGN RightValue BinOp RightValue .
+
+    $default  reduce using rule 19 (Expression)

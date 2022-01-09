@@ -21,6 +21,34 @@ extern int yylineno, charNum;
 ostream &out = cout;       // 用于输出
 
 
+struct Ptr_num{             // 用来传递参数，用IF_ptr_int表示传上来的是否为常量
+    int ptr_int;
+    string ptr_str;
+    int IF_ptr_int;
+    Ptr_num(int p_int){
+        ptr_int = p_int;
+        IF_ptr_int = 1; 
+    }
+    Ptr_num(string p_str){
+        ptr_str = p_str;
+        IF_ptr_int = 0; 
+    }
+    Ptr_num(){}
+    void Print(){       //打印出数值，用于调试
+        out << "-------------Ptr_print_in------------"<<endl;
+        if(IF_ptr_int){
+            out << "IF_ptr_int = " << IF_ptr_int << endl;
+            out << ptr_int;
+        }
+        else{
+            out << "IF_ptr_int = " << IF_ptr_int << endl;
+            out << ptr_str;
+        }
+        out << endl;
+        out << "-------------Ptr_print_out------------"<<endl;
+    }
+};
+
 struct IDENT_scope{
     string IDENT_name;
     string IDENT_num;          // 变量的值可变，因此用string存储
@@ -109,6 +137,8 @@ int Loc_Func_def;    //函数被定义的位置，用于最后的回填
 int Stack_Func_size;    //函数需要栈空间的大小
 int Stack_Func_nparam;    //已经被占用的栈空间的大小
 
+//=-------------------------------
+int s_num = 1;    // 始终保留s0用于最后的返回
 
 
 %}
@@ -301,32 +331,84 @@ Statement:
 ;
 
 Expression:
-    IDENT ASSIGN NUM
-    {     //对应 T0 = 1 的情况
-        IDENT_scope* tmp_ptr = find_define(*(ToStr($1)));
-
-        other_out = IF_DEEP() + "s1 = " + to_string(*ToInt($3));
-        Func_Other.push_back(other_out);
-
-        other_out = IF_DEEP() + "store s1 " + tmp_ptr->IR_name;
-        Func_Other.push_back(other_out);
-    }
-    | IDENT ASSIGN IDENT
+    IDENT ASSIGN RightValue
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
-        IDENT_scope* tmp_ptr2 = find_define(*(ToStr($3)));
+        
+        other_out = IF_DEEP() + "store " + (*(ToStr($3))) + " " + tmp_ptr1->IR_name;
+        Func_Other.push_back(other_out);
+    }
+    | IDENT ASSIGN OP RightValue
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
 
+        other_out = IF_DEEP() + "s0 = " + (*ToStr($3)) + " " + (*ToStr($4));
+        Func_Other.push_back(other_out);
+        
+        other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        Func_Other.push_back(other_out);
+    }
+    | IDENT ASSIGN RightValue BinOp RightValue
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
+
+        other_out = IF_DEEP() + "s0 = " + (*ToStr($3)) + " " + (*ToStr($4)) + " " + (*ToStr($5));
+        Func_Other.push_back(other_out);
+
+        other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        Func_Other.push_back(other_out);
+    }
+;
+
+BinOp:
+    OP
+    | LOGICOP
+;
+
+OP:
+    NOT
+    | ADD
+    | SUB
+    | MUL
+    | DIV
+;
+
+LOGICOP:
+    LE
+    | LEQ
+    | GE
+    | GEQ
+    | EQ
+    | NEQ
+;
+
+RightValue:
+    IDENT
+    {
+        // Ptr_num* tmp_ptr = new Ptr_num(*(ToStr($1)));
+        // $$ = (void*)(tmp_ptr);
+        IDENT_scope* tmp_ptr2 = find_define(*(ToStr($1)));
         if(tmp_ptr2->IDENT_if_array){
-            other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " s1";
+            other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " s" + to_string(s_num);
             Func_Other.push_back(other_out);
         }
         else{
-            other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " s1";
+            other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " s" + to_string(s_num);
             Func_Other.push_back(other_out);
         }
-        
-        other_out = IF_DEEP() + "store s1 " + tmp_ptr1->IR_name;
+        string* str = new string("s" + to_string(s_num));
+        $$ = (void*)(str);
+        s_num ++;
+    }
+    | NUM
+    {
+        // Ptr_num* tmp_ptr = new Ptr_num(*(ToInt($1)));
+        // $$ = (void*)(tmp_ptr);
+        other_out = IF_DEEP() + "s" + to_string(s_num) + " = " + to_string(*ToInt($1));
         Func_Other.push_back(other_out);
+        string* str = new string("s" + to_string(s_num));
+        $$ = (void*)(str);
+        s_num ++;
     }
 ;
 

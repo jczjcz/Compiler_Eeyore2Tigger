@@ -51,23 +51,23 @@ end     {charNum += yyleng; return END;}
     return NUM;
 }
 ":"     {++charNum; return COLON;}
-"+"     {++charNum; return ADD;}
-"-"     {++charNum; return SUB;}
-"*"     {++charNum; return MUL;}
-"/"     {++charNum; return DIV;}
-"<"     {++charNum; return LE;}
-"<="    {charNum += 2; return LEQ;}
-">"     {++charNum; return GE;}
-">="    {charNum += 2; return GEQ;}
-"=="    {charNum += 2; return EQ;}
-"!="    {charNum += 2; return NEQ;}
-"="     {++charNum; return ASSIGN;}
+"+"     {++charNum; yylval = new string("+");return ADD;}
+"-"     {++charNum; yylval = new string("-");return SUB;}
+"*"     {++charNum; yylval = new string("*");return MUL;}
+"/"     {++charNum; yylval = new string("/");return DIV;}
+"<"     {++charNum; yylval = new string("<");return LE;}
+"<="    {charNum += 2; yylval = new string("<=");return LEQ;}
+">"     {++charNum; yylval = new string(">");return GE;}
+">="    {charNum += 2; yylval = new string(">=");return GEQ;}
+"=="    {charNum += 2; yylval = new string("==");return EQ;}
+"!="    {charNum += 2; yylval = new string("!=");return NEQ;}
+"="     {++charNum; yylval = new string("=");return ASSIGN;}
 "["     {++charNum; return LBRAC;}
 "]"     {++charNum; return RBRAC;}
-"&&"    {charNum += 2; return AND;}
-"||"    {charNum += 2; return OR;}
-"!"     {++charNum; return NOT;}
-"%"     {++charNum; return MOD;}
+"&&"    {charNum += 2; yylval = new string("&&");return AND;}
+"||"    {charNum += 2; yylval = new string("||");return OR;}
+"!"     {++charNum; yylval = new string("!"); return NOT;}
+"%"     {++charNum; yylval = new string("%");return MOD;}
 
 "//".*$ {/* Single line comment */}
 %%
