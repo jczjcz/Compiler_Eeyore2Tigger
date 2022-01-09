@@ -1,8 +1,6 @@
-f_main [0] [0]
-	s1 = 0
-	a0 = s1
-	return
-	s1 = 0
-	a0 = s1
-	return
-end f_main
+f_climbStairs [1] [60]
+	store a0 0
+	load 0 s1
+	s2 = 4
+	if s1 >= s2 goto l0
+end f_climbStairs

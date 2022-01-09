@@ -1,6 +1,5 @@
 Terminals unused in grammar
 
-   MOD
    AND
    OR
 
@@ -59,16 +58,17 @@ Grammar
    34   | SUB
    35   | MUL
    36   | DIV
+   37   | MOD
 
-   37 LOGICOP: LE
-   38        | LEQ
-   39        | GE
-   40        | GEQ
-   41        | EQ
-   42        | NEQ
+   38 LOGICOP: LE
+   39        | LEQ
+   40        | GE
+   41        | GEQ
+   42        | EQ
+   43        | NEQ
 
-   43 RightValue: IDENT
-   44           | NUM
+   44 RightValue: IDENT
+   45           | NUM
 
 
 Terminals, with rules where they appear
@@ -79,19 +79,19 @@ ADD (258) 33
 SUB (259) 34
 MUL (260) 35
 DIV (261) 36
-MOD (262)
+MOD (262) 37
 ASSIGN (263) 8 9 17 18 19 20 21 29
-EQ (264) 41
-NEQ (265) 42
-LE (266) 37
-LEQ (267) 38
-GE (268) 39
-GEQ (269) 40
+EQ (264) 42
+NEQ (265) 43
+LE (266) 38
+LEQ (267) 39
+GE (268) 40
+GEQ (269) 41
 NOT (270) 32
 AND (271)
 OR (272)
-NUM (273) 7 8 9 11 44
-IDENT (274) 6 7 8 9 17 18 19 20 21 29 43
+NUM (273) 7 8 9 11 45
+IDENT (274) 6 7 8 9 17 18 19 20 21 29 44
 LBRAC (275) 9 11 20 21
 RBRAC (276) 9 11 20 21
 IF (277) 22
@@ -133,11 +133,11 @@ Expression (42)
 BinOp (43)
     on left: 30 31, on right: 19
 OP (44)
-    on left: 32 33 34 35 36, on right: 18 30
+    on left: 32 33 34 35 36 37, on right: 18 30
 LOGICOP (45)
-    on left: 37 38 39 40 41 42, on right: 22 31
+    on left: 38 39 40 41 42 43, on right: 22 31
 RightValue (46)
-    on left: 43 44, on right: 17 18 19 20 21 22 25 28
+    on left: 44 45, on right: 17 18 19 20 21 22 25 28
 
 
 State 0
@@ -444,13 +444,14 @@ State 32
     SUB    shift, and go to state 48
     MUL    shift, and go to state 49
     DIV    shift, and go to state 50
-    NOT    shift, and go to state 51
+    MOD    shift, and go to state 51
+    NOT    shift, and go to state 52
     NUM    shift, and go to state 34
-    IDENT  shift, and go to state 52
-    CALL   shift, and go to state 53
+    IDENT  shift, and go to state 53
+    CALL   shift, and go to state 54
 
-    OP          go to state 54
-    RightValue  go to state 55
+    OP          go to state 55
+    RightValue  go to state 56
 
 
 State 33
@@ -460,35 +461,35 @@ State 33
     NUM    shift, and go to state 34
     IDENT  shift, and go to state 35
 
-    RightValue  go to state 56
+    RightValue  go to state 57
 
 
 State 34
 
-   44 RightValue: NUM .
+   45 RightValue: NUM .
 
-    $default  reduce using rule 44 (RightValue)
+    $default  reduce using rule 45 (RightValue)
 
 
 State 35
 
-   43 RightValue: IDENT .
+   44 RightValue: IDENT .
 
-    $default  reduce using rule 43 (RightValue)
+    $default  reduce using rule 44 (RightValue)
 
 
 State 36
 
    22 Expression: IF RightValue . LOGICOP RightValue GOTO LABEL
 
-    EQ   shift, and go to state 57
-    NEQ  shift, and go to state 58
-    LE   shift, and go to state 59
-    LEQ  shift, and go to state 60
-    GE   shift, and go to state 61
-    GEQ  shift, and go to state 62
+    EQ   shift, and go to state 58
+    NEQ  shift, and go to state 59
+    LE   shift, and go to state 60
+    LEQ  shift, and go to state 61
+    GE   shift, and go to state 62
+    GEQ  shift, and go to state 63
 
-    LOGICOP  go to state 63
+    LOGICOP  go to state 64
 
 
 State 37
@@ -530,7 +531,7 @@ State 42
 
    12 FunctionEnd: END . FUNC
 
-    FUNC  shift, and go to state 64
+    FUNC  shift, and go to state 65
 
 
 State 43
@@ -551,7 +552,7 @@ State 45
 
     9 Initialization: IDENT LBRAC NUM RBRAC . ASSIGN NUM
 
-    ASSIGN  shift, and go to state 65
+    ASSIGN  shift, and go to state 66
 
 
 State 46
@@ -591,39 +592,46 @@ State 50
 
 State 51
 
+   37 OP: MOD .
+
+    $default  reduce using rule 37 (OP)
+
+
+State 52
+
    32 OP: NOT .
 
     $default  reduce using rule 32 (OP)
 
 
-State 52
-
-   21 Expression: IDENT ASSIGN IDENT . LBRAC RightValue RBRAC
-   43 RightValue: IDENT .
-
-    LBRAC  shift, and go to state 66
-
-    $default  reduce using rule 43 (RightValue)
-
-
 State 53
 
-   29 Expression: IDENT ASSIGN CALL . FUNC
+   21 Expression: IDENT ASSIGN IDENT . LBRAC RightValue RBRAC
+   44 RightValue: IDENT .
 
-    FUNC  shift, and go to state 67
+    LBRAC  shift, and go to state 67
+
+    $default  reduce using rule 44 (RightValue)
 
 
 State 54
+
+   29 Expression: IDENT ASSIGN CALL . FUNC
+
+    FUNC  shift, and go to state 68
+
+
+State 55
 
    18 Expression: IDENT ASSIGN OP . RightValue
 
     NUM    shift, and go to state 34
     IDENT  shift, and go to state 35
 
-    RightValue  go to state 68
+    RightValue  go to state 69
 
 
-State 55
+State 56
 
    17 Expression: IDENT ASSIGN RightValue .
    19           | IDENT ASSIGN RightValue . BinOp RightValue
@@ -632,121 +640,98 @@ State 55
     SUB  shift, and go to state 48
     MUL  shift, and go to state 49
     DIV  shift, and go to state 50
-    EQ   shift, and go to state 57
-    NEQ  shift, and go to state 58
-    LE   shift, and go to state 59
-    LEQ  shift, and go to state 60
-    GE   shift, and go to state 61
-    GEQ  shift, and go to state 62
-    NOT  shift, and go to state 51
+    MOD  shift, and go to state 51
+    EQ   shift, and go to state 58
+    NEQ  shift, and go to state 59
+    LE   shift, and go to state 60
+    LEQ  shift, and go to state 61
+    GE   shift, and go to state 62
+    GEQ  shift, and go to state 63
+    NOT  shift, and go to state 52
 
     $default  reduce using rule 17 (Expression)
 
-    BinOp    go to state 69
-    OP       go to state 70
-    LOGICOP  go to state 71
-
-
-State 56
-
-   20 Expression: IDENT LBRAC RightValue . RBRAC ASSIGN RightValue
-
-    RBRAC  shift, and go to state 72
+    BinOp    go to state 70
+    OP       go to state 71
+    LOGICOP  go to state 72
 
 
 State 57
 
-   41 LOGICOP: EQ .
+   20 Expression: IDENT LBRAC RightValue . RBRAC ASSIGN RightValue
 
-    $default  reduce using rule 41 (LOGICOP)
+    RBRAC  shift, and go to state 73
 
 
 State 58
 
-   42 LOGICOP: NEQ .
+   42 LOGICOP: EQ .
 
     $default  reduce using rule 42 (LOGICOP)
 
 
 State 59
 
-   37 LOGICOP: LE .
+   43 LOGICOP: NEQ .
 
-    $default  reduce using rule 37 (LOGICOP)
+    $default  reduce using rule 43 (LOGICOP)
 
 
 State 60
 
-   38 LOGICOP: LEQ .
+   38 LOGICOP: LE .
 
     $default  reduce using rule 38 (LOGICOP)
 
 
 State 61
 
-   39 LOGICOP: GE .
+   39 LOGICOP: LEQ .
 
     $default  reduce using rule 39 (LOGICOP)
 
 
 State 62
 
-   40 LOGICOP: GEQ .
+   40 LOGICOP: GE .
 
     $default  reduce using rule 40 (LOGICOP)
 
 
 State 63
 
+   41 LOGICOP: GEQ .
+
+    $default  reduce using rule 41 (LOGICOP)
+
+
+State 64
+
    22 Expression: IF RightValue LOGICOP . RightValue GOTO LABEL
 
     NUM    shift, and go to state 34
     IDENT  shift, and go to state 35
 
-    RightValue  go to state 73
+    RightValue  go to state 74
 
 
-State 64
+State 65
 
    12 FunctionEnd: END FUNC .
 
     $default  reduce using rule 12 (FunctionEnd)
 
 
-State 65
+State 66
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN . NUM
 
-    NUM  shift, and go to state 74
-
-
-State 66
-
-   21 Expression: IDENT ASSIGN IDENT LBRAC . RightValue RBRAC
-
-    NUM    shift, and go to state 34
-    IDENT  shift, and go to state 35
-
-    RightValue  go to state 75
+    NUM  shift, and go to state 75
 
 
 State 67
 
-   29 Expression: IDENT ASSIGN CALL FUNC .
-
-    $default  reduce using rule 29 (Expression)
-
-
-State 68
-
-   18 Expression: IDENT ASSIGN OP RightValue .
-
-    $default  reduce using rule 18 (Expression)
-
-
-State 69
-
-   19 Expression: IDENT ASSIGN RightValue BinOp . RightValue
+   21 Expression: IDENT ASSIGN IDENT LBRAC . RightValue RBRAC
 
     NUM    shift, and go to state 34
     IDENT  shift, and go to state 35
@@ -754,87 +739,111 @@ State 69
     RightValue  go to state 76
 
 
+State 68
+
+   29 Expression: IDENT ASSIGN CALL FUNC .
+
+    $default  reduce using rule 29 (Expression)
+
+
+State 69
+
+   18 Expression: IDENT ASSIGN OP RightValue .
+
+    $default  reduce using rule 18 (Expression)
+
+
 State 70
+
+   19 Expression: IDENT ASSIGN RightValue BinOp . RightValue
+
+    NUM    shift, and go to state 34
+    IDENT  shift, and go to state 35
+
+    RightValue  go to state 77
+
+
+State 71
 
    30 BinOp: OP .
 
     $default  reduce using rule 30 (BinOp)
 
 
-State 71
+State 72
 
    31 BinOp: LOGICOP .
 
     $default  reduce using rule 31 (BinOp)
 
 
-State 72
+State 73
 
    20 Expression: IDENT LBRAC RightValue RBRAC . ASSIGN RightValue
 
-    ASSIGN  shift, and go to state 77
-
-
-State 73
-
-   22 Expression: IF RightValue LOGICOP RightValue . GOTO LABEL
-
-    GOTO  shift, and go to state 78
+    ASSIGN  shift, and go to state 78
 
 
 State 74
+
+   22 Expression: IF RightValue LOGICOP RightValue . GOTO LABEL
+
+    GOTO  shift, and go to state 79
+
+
+State 75
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN NUM .
 
     $default  reduce using rule 9 (Initialization)
 
 
-State 75
+State 76
 
    21 Expression: IDENT ASSIGN IDENT LBRAC RightValue . RBRAC
 
-    RBRAC  shift, and go to state 79
+    RBRAC  shift, and go to state 80
 
 
-State 76
+State 77
 
    19 Expression: IDENT ASSIGN RightValue BinOp RightValue .
 
     $default  reduce using rule 19 (Expression)
 
 
-State 77
+State 78
 
    20 Expression: IDENT LBRAC RightValue RBRAC ASSIGN . RightValue
 
     NUM    shift, and go to state 34
     IDENT  shift, and go to state 35
 
-    RightValue  go to state 80
-
-
-State 78
-
-   22 Expression: IF RightValue LOGICOP RightValue GOTO . LABEL
-
-    LABEL  shift, and go to state 81
+    RightValue  go to state 81
 
 
 State 79
+
+   22 Expression: IF RightValue LOGICOP RightValue GOTO . LABEL
+
+    LABEL  shift, and go to state 82
+
+
+State 80
 
    21 Expression: IDENT ASSIGN IDENT LBRAC RightValue RBRAC .
 
     $default  reduce using rule 21 (Expression)
 
 
-State 80
+State 81
 
    20 Expression: IDENT LBRAC RightValue RBRAC ASSIGN RightValue .
 
     $default  reduce using rule 20 (Expression)
 
 
-State 81
+State 82
 
    22 Expression: IF RightValue LOGICOP RightValue GOTO LABEL .
 

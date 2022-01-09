@@ -1,12 +1,29 @@
-// BEGIN EEYORE
-//--- GLOBAL DECL
-
-//--- GLOBAL INIT
-
-//--- FUNCTIONS
-f_main [0]
-    return 0
-    return 0 // stmt: func epilog
-end f_main
-
-// END EEYORE
+f_climbStairs [1]
+var t0
+var 40 T0 // local: dp
+var T1 // local: i
+var t1
+var t2
+var t3
+var t4
+var t5
+var t6
+var t7
+var t8
+var t9
+var t10
+var t11
+var t12
+var t13
+var t14
+var t15
+var t16
+var t17
+if p0 >= 4 goto l0 // stmt: ifonly
+    
+    
+    
+    
+    
+    
+end f_climbStairs

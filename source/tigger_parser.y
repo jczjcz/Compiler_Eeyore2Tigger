@@ -139,6 +139,8 @@ int Loc_Func_def;    //函数被定义的位置，用于最后的回填
 int Stack_Func_size;    //函数需要栈空间的大小
 int Stack_Func_nparam;    //已经被占用的栈空间的大小
 
+int Func_stack_num;    //包括所有的参数和定义的变量，函数定义结束后从scope中弹出
+
 //=-------------------------------
 int s_num = 1;    // 始终保留s0用于最后的返回
 
@@ -292,6 +294,7 @@ FunctionDef:
 FunctionHeader:
     FUNC LBRAC NUM RBRAC
     {
+        Func_stack_num = 0;
         Flag_def_out = 0;    //表示已经在函数内部
         Stack_Func_size = 0;
 
@@ -319,6 +322,11 @@ FunctionHeader:
         while(Stack_Func_size < Stack_Func_nparam){
             other_out = IF_DEEP() + "store a" + to_string(Stack_Func_size) + " " + to_string(Stack_Func_size);
             Func_Other.push_back(other_out);
+            
+            IDENT_scope* tmp_param = new IDENT_scope("p"+to_string(Stack_Func_size) ,"");
+            tmp_param->IR_name = to_string(Stack_Func_size);
+            tmp_param->IF_Global = 0;
+            Scope.push_back(*tmp_param);
             Stack_Func_size ++;
         }
 
@@ -330,7 +338,7 @@ FunctionHeader:
             
         }
 
-        
+        Func_stack_num = Stack_Func_nparam;    // 首先等于参数的个数
     }
 ;
 
@@ -342,6 +350,11 @@ FunctionEnd:
         DEEP --;
 
         Flag_def_out = 1;
+
+        while(Func_stack_num > 0){
+            Scope.pop_back();     //将局部变量都弹出
+            Func_stack_num --;
+        }
     }
 ;
 
@@ -353,9 +366,13 @@ Statements:
 Statement:
     Declaration
     {
-        
+        Func_stack_num += 1;   // 每次进行定义，个数+1
+        // Out_Print("other");
     }
     | Expression
+    {
+        // Out_Print("other");
+    }
 ;
 
 Expression:
@@ -499,6 +516,7 @@ OP:
     | SUB
     | MUL
     | DIV
+    | MOD
 ;
 
 LOGICOP:
