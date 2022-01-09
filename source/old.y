@@ -136,18 +136,6 @@ bool check_define(string str){       // 检查当前域中是否存在重复
     return true;
 }
 
-IDENT_scope* find_define(string name){
-    int i = Scope.size() - 1;
-    if(i == -1)
-        return nullptr;
-    while(i >= 0){
-        if(name == Scope[i].IDENT_name){
-            return & Scope[i];
-        }
-        i--;
-    }
-    return nullptr;
-}
 
 
 //-----------------数组相关变量------------------------------

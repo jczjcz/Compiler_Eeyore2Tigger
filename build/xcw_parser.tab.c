@@ -97,6 +97,8 @@ struct IDENT_scope{
 
     int Array_size;
     bool IDENT_if_array;       //是否为数组变量
+    int Param_num;
+    int Stack_loc;       //在函数中的位置
 
     IDENT_scope(string name,string ir_name){       //常量的构造函数
         IDENT_name = name;
@@ -108,27 +110,78 @@ struct IDENT_scope{
 
 vector<IDENT_scope> Scope;     //符号表
 
-int VAR_v_num = 0;
 
-//-----------------函数语句打印相关变量------------------------------
-vector<string> Func_VarDecl;
-vector<string> Func_Other;
-string def_out;       // 这个string 用来记录用于def的语句
-string other_out;     // 这个string 用来记录其他的语句
-void Out_Print(){
-    for(int i = 0;i < Func_VarDecl.size();i++){
-        out << Func_VarDecl[i] << endl;
+
+IDENT_scope* find_define(string name){
+    int i = Scope.size() - 1;
+    if(i == -1)
+        return nullptr;
+    while(i >= 0){
+        if(name == Scope[i].IDENT_name){
+            return & Scope[i];
+        }
+        i--;
     }
-    for(int i = 0;i < Func_Other.size();i++){
-        out << Func_Other[i] << endl;
-    }
-    //out << func_def_out << endl;
-    Func_VarDecl.clear();
-    Func_Other.clear();
+    return nullptr;
 }
 
+int DEEP = 0;
+int VAR_v_num = 0;
 
-#line 132 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
+string IF_DEEP(){
+    string str_if_deep = "";
+    if(DEEP != 0)
+        str_if_deep += "\t";
+    return str_if_deep;
+}
+
+//-----------------函数语句打印相关变量------------------------------
+vector<string> Func_Init;
+vector<string> Func_Other;
+string init_out;
+string other_out;     // 这个string 用来记录其他的语句
+void Out_Print(string s){
+    if(s == "init"){
+        for(int i = 0;i < Func_Init.size();i++){
+            out << Func_Init[i] << endl;
+        }
+        Func_Init.clear();
+        return;
+    }
+    if(s == "other"){
+        for(int i = 0;i < Func_Other.size();i++){
+            out << Func_Other[i] << endl;
+        }
+        Func_Other.clear();
+        return;
+    }
+    // for(int i = 0;i < Func_Init.size();i++){
+    //     out << Func_Init[i] << endl;
+    // }
+    // for(int i = 0;i < Func_Other.size();i++){
+    //     out << Func_Other[i] << endl;
+    // }
+    //out << func_other_out << endl;
+    // Func_Other.clear();
+    // Func_Init.clear();
+    // Func_Other.clear();
+}
+
+//----------------------变量初始化相关------------------
+int Flag_init_in_func;            // 表示变量初始化是否在函数中，因为tigger只允许在函数中赋值
+int Flag_def_out = 1;            // 表示变量是否为全局变量
+
+int Flag_IF_nfunc = 0;
+
+//---------------------函数回填相关----------------
+int Loc_Func_def;    //函数被定义的位置，用于最后的回填  
+int Stack_Func_size;    //函数需要栈空间的大小
+int Stack_Func_inuse;    //已经被占用的栈空间的大小
+
+
+
+
+#line 185 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
 #   if 201103L <= __cplusplus
@@ -473,18 +526,18 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  7
+#define YYFINAL  15
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   29
+#define YYLAST   31
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  4
+#define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  6
+#define YYNRULES  18
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  10
+#define YYNSTATES  36
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   286
@@ -531,9 +584,10 @@ static const yytype_uint8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    73,    73,    74,    78,    85,    94
+       0,   126,   126,   127,   131,   135,   139,   146,   161,   176,
+     194,   218,   225,   265,   276,   277,   281,   285,   289
 };
 #endif
 
@@ -546,7 +600,8 @@ static const char *const yytname[] =
   "ASSIGN", "EQ", "NEQ", "LE", "LEQ", "GE", "GEQ", "NOT", "AND", "OR",
   "NUM", "IDENT", "LBRAC", "RBRAC", "IF", "GOTO", "LABEL", "PARAM", "CALL",
   "RETURN", "COLON", "VAR", "FUNC", "END", "$accept", "Program",
-  "ProgramUnit", "Declaration", YY_NULLPTR
+  "ProgramUnit", "Declaration", "Initialization", "FunctionDef",
+  "FunctionHeader", "FunctionEnd", "Statements", "Statement", "Expression", YY_NULLPTR
 };
 #endif
 
@@ -562,10 +617,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -27
+#define YYPACT_NINF -19
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-27)))
+  (!!((Yystate) == (-19)))
 
 #define YYTABLE_NINF -1
 
@@ -576,7 +631,10 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -26,   -17,     0,   -27,   -27,   -15,   -27,   -27,   -27,   -27
+     -14,    -6,   -15,   -11,     0,   -19,   -19,   -19,   -19,   -12,
+      -8,     2,   -13,   -19,     3,   -19,   -19,     4,   -19,   -18,
+     -19,   -19,   -19,     1,   -19,     5,     6,    -7,   -19,   -19,
+      17,   -19,   -19,   -19,     9,   -19
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -584,19 +642,24 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     2,     4,     0,     5,     1,     3,     6
+       0,     0,     0,     0,     0,     2,     4,     5,     6,     0,
+       0,     0,     0,     7,     0,     1,     3,     0,    16,     0,
+      14,    17,     9,     0,     8,     0,     0,     0,    11,    15,
+       0,    12,    18,    13,     0,    10
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -27,   -27,     3,   -27
+     -19,   -19,    24,    -1,   -19,   -19,   -19,   -19,   -19,    12,
+     -19
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,     4
+      -1,     4,     5,     6,     7,     8,     9,    28,    19,    20,
+      21
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -604,35 +667,42 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       7,     5,     6,     1,     9,     8,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     1
+      15,    17,    10,    12,    13,     1,    24,    17,    18,    14,
+      22,     2,    26,    27,    11,     2,     3,     2,    18,     1,
+      23,    25,    30,    33,    32,    34,    31,    35,    16,     2,
+       3,    29
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-       0,    18,    19,    29,    19,     2,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    29
+       0,    19,     8,    18,    19,    19,    19,    19,     9,    20,
+      18,    29,     8,    31,    20,    29,    30,    29,    19,    19,
+      18,    18,    21,    30,    18,     8,    21,    18,     4,    29,
+      30,    19
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    29,    33,    34,    35,    18,    19,     0,    34,    19
+       0,    19,    29,    30,    33,    34,    35,    36,    37,    38,
+       8,    20,    18,    19,    20,     0,    34,    19,    35,    40,
+      41,    42,    18,    18,    19,    18,     8,    31,    39,    41,
+      21,    21,    18,    30,     8,    18
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    32,    33,    33,    34,    35,    35
+       0,    32,    33,    33,    34,    34,    34,    35,    35,    36,
+      36,    37,    38,    39,    40,    40,    41,    41,    42
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     1,     2,     1,     2,     3
+       0,     2,     1,     2,     1,     1,     1,     2,     3,     3,
+       6,     3,     4,     2,     1,     2,     1,     1,     3
 };
 
 
@@ -1318,42 +1388,196 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 79 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 132 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
-        Out_Print();
+        Out_Print("other");
     }
-#line 1326 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1396 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 5:
-#line 86 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 136 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
-        IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
-        VAR_v_num ++;
-        Scope.push_back(*tmp_ptr);
-        def_out = tmp_ptr->IR_name + " = 0";
-        Func_VarDecl.push_back(def_out);
-
+        // Out_Print("init");
     }
-#line 1339 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1404 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 6:
-#line 95 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 140 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        Out_Print("other");
+    }
+#line 1412 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 7:
+#line 147 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        if(Flag_def_out == 1){          //如果是全局变量，需要初始化为0
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
+            VAR_v_num ++;
+            Scope.push_back(*tmp_ptr);
+            other_out = IF_DEEP() + tmp_ptr->IR_name + " = 0";
+            Func_Other.push_back(other_out);
+        }
+        else{
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),"");
+            tmp_ptr->Stack_loc = Stack_Func_size;
+        }
+
+    }
+#line 1431 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 8:
+#line 162 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
         VAR_v_num ++;
         tmp_ptr->Array_size = *ToInt(yyvsp[-1]);
         tmp_ptr->IDENT_if_array = 1;
+        Scope.push_back(*tmp_ptr);
+        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
 
-        def_out = tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
-        Func_VarDecl.push_back(def_out);
+        other_out = IF_DEEP() + tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
+        Func_Other.push_back(other_out);
     }
-#line 1353 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1447 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 9:
+#line 177 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        DEEP = 1;
+        if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
+            init_out = "f_init_nfunc [0] [0]";       //单纯用来输出定义
+            Func_Init.push_back(init_out);
+            Flag_IF_nfunc = 1;
+        }
+        IDENT_scope* tmp_ptr = find_define(*(ToStr(yyvsp[-2])));
+        init_out = IF_DEEP() + "loadaddr " + tmp_ptr->IR_name + " t0";
+        Func_Init.push_back(init_out);
+        init_out = IF_DEEP() + "t1 = " + to_string(*ToInt(yyvsp[0]));
+        Func_Init.push_back(init_out);
+        init_out = IF_DEEP() + "t0[0] = t1";
+        Func_Init.push_back(init_out);
+
+        DEEP = 0;
+    }
+#line 1469 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 10:
+#line 195 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        DEEP = 1;
+        if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
+            init_out = "f_init_nfunc [0] [0]";       //单纯用来输出定义
+            Func_Init.push_back(init_out);
+            Flag_IF_nfunc = 1;
+        }
+
+        IDENT_scope* tmp_ptr = find_define(*(ToStr(yyvsp[-5])));
+
+        init_out = IF_DEEP() + "loadaddr " + tmp_ptr->IR_name + " p0";
+        Func_Init.push_back(init_out);
+        init_out = IF_DEEP() + "t1 = " + to_string(*(ToInt(yyvsp[0])));
+        Func_Init.push_back(init_out);
+        init_out = IF_DEEP() + "t0[" + to_string(*ToInt(yyvsp[-3])) + "] = t1";
+        Func_Init.push_back(init_out);
+        
+
+        DEEP = 0;
+    }
+#line 1494 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 11:
+#line 219 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        Func_Other[0] += ("[" + to_string(Stack_Func_size) + "]");
+    }
+#line 1502 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 12:
+#line 226 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        Flag_def_out = 0;    //表示已经在函数内部
+        Stack_Func_inuse = 0;   //已占用的栈空间初始化为0
+
+        if((*(ToStr(yyvsp[-3]))) == "f_main"){
+            init_out = "return";       //单纯用来输出定义
+            Func_Init.push_back(init_out);
+            Out_Print("init");      //如果遇到main函数，就先把之前的初始化语句在函数init_nfunc中输出来
+        }
+
+        DEEP ++;
+
+        IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[-3])),"");
+        tmp_ptr->Param_num = *ToInt(yyvsp[-1]);
+        Scope.push_back(*tmp_ptr);
+        Loc_Func_def = Func_Other.size();     //记录当前函数最后的位置，用来插入定义语句
+        Stack_Func_size = *ToInt(yyvsp[-1]);    // 初始化为参数的大小
+        other_out = (*(ToStr(yyvsp[-3]))) + " [" + to_string(*ToInt(yyvsp[-1])) + "] ";
+        Func_Other.push_back(other_out);
+
+        while(Stack_Func_inuse < Stack_Func_size){
+            other_out = IF_DEEP() + "store a" + to_string(Stack_Func_inuse) + " " + to_string(Stack_Func_inuse);
+            Func_Other.push_back(other_out);
+            Stack_Func_inuse ++;
+        }
+
+        if((*(ToStr(yyvsp[-3]))) == "f_main"){
+            if(Flag_IF_nfunc == 1){
+                other_out = IF_DEEP() + "call f_init_nfunc";
+                Func_Other.push_back(other_out);
+            }
+            
+        }
+
+        
+    }
+#line 1543 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 13:
+#line 266 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = "end " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);   //输出end
+        DEEP --;
+
+        Flag_def_out = 1;
+    }
+#line 1555 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 16:
+#line 282 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        Stack_Func_size ++;    //函数需要的栈空间 + 1
+    }
+#line 1563 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 18:
+#line 290 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {     //对应 T0 = 1 的情况
+        // other_out = "tttttttttttttest--------------";
+        // Func_Other.push_back(other_out);
+        IDENT_scope* tmp_ptr = find_define(*(ToStr(yyvsp[-2])));
+        other_out = IF_DEEP() + "s1 = " + to_string(*ToInt(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        other_out = IF_DEEP() + "store s1 " + to_string(tmp_ptr->Stack_loc);
+        Func_Other.push_back(other_out);
+    }
+#line 1577 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
 
-#line 1357 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1581 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1584,7 +1808,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 115 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
+#line 305 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
 
 
 void yyerror(const char *s) {

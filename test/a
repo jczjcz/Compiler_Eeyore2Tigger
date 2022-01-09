@@ -1,3 +1,14 @@
-var T0
-var 40 T1
+var T2
+var  40 T3
+T2 = 1
+T2 = 5
+f_a [3]
+    var T3
+    T3 = 1
+end f_a
+
+
+f_main [0]
+    var T4
+end f_main
 

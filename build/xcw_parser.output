@@ -5,7 +5,6 @@ Terminals unused in grammar
    MUL
    DIV
    MOD
-   ASSIGN
    EQ
    NEQ
    LE
@@ -15,8 +14,6 @@ Terminals unused in grammar
    NOT
    AND
    OR
-   LBRAC
-   RBRAC
    IF
    GOTO
    LABEL
@@ -24,8 +21,6 @@ Terminals unused in grammar
    CALL
    RETURN
    COLON
-   FUNC
-   END
 
 
 Grammar
@@ -36,9 +31,28 @@ Grammar
     2        | Program ProgramUnit
 
     3 ProgramUnit: Declaration
+    4            | Initialization
+    5            | FunctionDef
 
-    4 Declaration: VAR IDENT
-    5            | VAR NUM IDENT
+    6 Declaration: VAR IDENT
+    7            | VAR NUM IDENT
+
+    8 Initialization: IDENT ASSIGN NUM
+    9               | IDENT LBRAC NUM RBRAC ASSIGN NUM
+
+   10 FunctionDef: FunctionHeader Statements FunctionEnd
+
+   11 FunctionHeader: FUNC LBRAC NUM RBRAC
+
+   12 FunctionEnd: END FUNC
+
+   13 Statements: Statement
+   14           | Statements Statement
+
+   15 Statement: Declaration
+   16          | Expression
+
+   17 Expression: IDENT ASSIGN NUM
 
 
 Terminals, with rules where they appear
@@ -50,7 +64,7 @@ SUB (259)
 MUL (260)
 DIV (261)
 MOD (262)
-ASSIGN (263)
+ASSIGN (263) 8 9 17
 EQ (264)
 NEQ (265)
 LE (266)
@@ -60,10 +74,10 @@ GEQ (269)
 NOT (270)
 AND (271)
 OR (272)
-NUM (273) 5
-IDENT (274) 4 5
-LBRAC (275)
-RBRAC (276)
+NUM (273) 7 8 9 11 17
+IDENT (274) 6 7 8 9 17
+LBRAC (275) 9 11
+RBRAC (276) 9 11
 IF (277)
 GOTO (278)
 LABEL (279)
@@ -71,9 +85,9 @@ PARAM (280)
 CALL (281)
 RETURN (282)
 COLON (283)
-VAR (284) 4 5
-FUNC (285)
-END (286)
+VAR (284) 6 7
+FUNC (285) 11 12
+END (286) 12
 
 
 Nonterminals, with rules where they appear
@@ -83,87 +97,309 @@ $accept (32)
 Program (33)
     on left: 1 2, on right: 0 2
 ProgramUnit (34)
-    on left: 3, on right: 1 2
+    on left: 3 4 5, on right: 1 2
 Declaration (35)
-    on left: 4 5, on right: 3
+    on left: 6 7, on right: 3 15
+Initialization (36)
+    on left: 8 9, on right: 4
+FunctionDef (37)
+    on left: 10, on right: 5
+FunctionHeader (38)
+    on left: 11, on right: 10
+FunctionEnd (39)
+    on left: 12, on right: 10
+Statements (40)
+    on left: 13 14, on right: 10 14
+Statement (41)
+    on left: 15 16, on right: 13 14
+Expression (42)
+    on left: 17, on right: 16
 
 
 State 0
 
     0 $accept: . Program $end
 
-    VAR  shift, and go to state 1
+    IDENT  shift, and go to state 1
+    VAR    shift, and go to state 2
+    FUNC   shift, and go to state 3
 
-    Program      go to state 2
-    ProgramUnit  go to state 3
-    Declaration  go to state 4
+    Program         go to state 4
+    ProgramUnit     go to state 5
+    Declaration     go to state 6
+    Initialization  go to state 7
+    FunctionDef     go to state 8
+    FunctionHeader  go to state 9
 
 
 State 1
 
-    4 Declaration: VAR . IDENT
-    5            | VAR . NUM IDENT
+    8 Initialization: IDENT . ASSIGN NUM
+    9               | IDENT . LBRAC NUM RBRAC ASSIGN NUM
 
-    NUM    shift, and go to state 5
-    IDENT  shift, and go to state 6
+    ASSIGN  shift, and go to state 10
+    LBRAC   shift, and go to state 11
 
 
 State 2
 
-    0 $accept: Program . $end
-    2 Program: Program . ProgramUnit
+    6 Declaration: VAR . IDENT
+    7            | VAR . NUM IDENT
 
-    $end  shift, and go to state 7
-    VAR   shift, and go to state 1
-
-    ProgramUnit  go to state 8
-    Declaration  go to state 4
+    NUM    shift, and go to state 12
+    IDENT  shift, and go to state 13
 
 
 State 3
+
+   11 FunctionHeader: FUNC . LBRAC NUM RBRAC
+
+    LBRAC  shift, and go to state 14
+
+
+State 4
+
+    0 $accept: Program . $end
+    2 Program: Program . ProgramUnit
+
+    $end   shift, and go to state 15
+    IDENT  shift, and go to state 1
+    VAR    shift, and go to state 2
+    FUNC   shift, and go to state 3
+
+    ProgramUnit     go to state 16
+    Declaration     go to state 6
+    Initialization  go to state 7
+    FunctionDef     go to state 8
+    FunctionHeader  go to state 9
+
+
+State 5
 
     1 Program: ProgramUnit .
 
     $default  reduce using rule 1 (Program)
 
 
-State 4
+State 6
 
     3 ProgramUnit: Declaration .
 
     $default  reduce using rule 3 (ProgramUnit)
 
 
-State 5
-
-    5 Declaration: VAR NUM . IDENT
-
-    IDENT  shift, and go to state 9
-
-
-State 6
-
-    4 Declaration: VAR IDENT .
-
-    $default  reduce using rule 4 (Declaration)
-
-
 State 7
+
+    4 ProgramUnit: Initialization .
+
+    $default  reduce using rule 4 (ProgramUnit)
+
+
+State 8
+
+    5 ProgramUnit: FunctionDef .
+
+    $default  reduce using rule 5 (ProgramUnit)
+
+
+State 9
+
+   10 FunctionDef: FunctionHeader . Statements FunctionEnd
+
+    IDENT  shift, and go to state 17
+    VAR    shift, and go to state 2
+
+    Declaration  go to state 18
+    Statements   go to state 19
+    Statement    go to state 20
+    Expression   go to state 21
+
+
+State 10
+
+    8 Initialization: IDENT ASSIGN . NUM
+
+    NUM  shift, and go to state 22
+
+
+State 11
+
+    9 Initialization: IDENT LBRAC . NUM RBRAC ASSIGN NUM
+
+    NUM  shift, and go to state 23
+
+
+State 12
+
+    7 Declaration: VAR NUM . IDENT
+
+    IDENT  shift, and go to state 24
+
+
+State 13
+
+    6 Declaration: VAR IDENT .
+
+    $default  reduce using rule 6 (Declaration)
+
+
+State 14
+
+   11 FunctionHeader: FUNC LBRAC . NUM RBRAC
+
+    NUM  shift, and go to state 25
+
+
+State 15
 
     0 $accept: Program $end .
 
     $default  accept
 
 
-State 8
+State 16
 
     2 Program: Program ProgramUnit .
 
     $default  reduce using rule 2 (Program)
 
 
-State 9
+State 17
 
-    5 Declaration: VAR NUM IDENT .
+   17 Expression: IDENT . ASSIGN NUM
 
-    $default  reduce using rule 5 (Declaration)
+    ASSIGN  shift, and go to state 26
+
+
+State 18
+
+   15 Statement: Declaration .
+
+    $default  reduce using rule 15 (Statement)
+
+
+State 19
+
+   10 FunctionDef: FunctionHeader Statements . FunctionEnd
+   14 Statements: Statements . Statement
+
+    IDENT  shift, and go to state 17
+    VAR    shift, and go to state 2
+    END    shift, and go to state 27
+
+    Declaration  go to state 18
+    FunctionEnd  go to state 28
+    Statement    go to state 29
+    Expression   go to state 21
+
+
+State 20
+
+   13 Statements: Statement .
+
+    $default  reduce using rule 13 (Statements)
+
+
+State 21
+
+   16 Statement: Expression .
+
+    $default  reduce using rule 16 (Statement)
+
+
+State 22
+
+    8 Initialization: IDENT ASSIGN NUM .
+
+    $default  reduce using rule 8 (Initialization)
+
+
+State 23
+
+    9 Initialization: IDENT LBRAC NUM . RBRAC ASSIGN NUM
+
+    RBRAC  shift, and go to state 30
+
+
+State 24
+
+    7 Declaration: VAR NUM IDENT .
+
+    $default  reduce using rule 7 (Declaration)
+
+
+State 25
+
+   11 FunctionHeader: FUNC LBRAC NUM . RBRAC
+
+    RBRAC  shift, and go to state 31
+
+
+State 26
+
+   17 Expression: IDENT ASSIGN . NUM
+
+    NUM  shift, and go to state 32
+
+
+State 27
+
+   12 FunctionEnd: END . FUNC
+
+    FUNC  shift, and go to state 33
+
+
+State 28
+
+   10 FunctionDef: FunctionHeader Statements FunctionEnd .
+
+    $default  reduce using rule 10 (FunctionDef)
+
+
+State 29
+
+   14 Statements: Statements Statement .
+
+    $default  reduce using rule 14 (Statements)
+
+
+State 30
+
+    9 Initialization: IDENT LBRAC NUM RBRAC . ASSIGN NUM
+
+    ASSIGN  shift, and go to state 34
+
+
+State 31
+
+   11 FunctionHeader: FUNC LBRAC NUM RBRAC .
+
+    $default  reduce using rule 11 (FunctionHeader)
+
+
+State 32
+
+   17 Expression: IDENT ASSIGN NUM .
+
+    $default  reduce using rule 17 (Expression)
+
+
+State 33
+
+   12 FunctionEnd: END FUNC .
+
+    $default  reduce using rule 12 (FunctionEnd)
+
+
+State 34
+
+    9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN . NUM
+
+    NUM  shift, and go to state 35
+
+
+State 35
+
+    9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN NUM .
+
+    $default  reduce using rule 9 (Initialization)
