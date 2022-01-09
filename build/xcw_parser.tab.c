@@ -1587,7 +1587,7 @@ yyreduce:
 
         IDENT_scope* tmp_ptr = find_define(*(ToStr(yyvsp[-5])));
 
-        init_out = IF_DEEP() + "loadaddr " + tmp_ptr->IR_name + " p0";
+        init_out = IF_DEEP() + "loadaddr " + tmp_ptr->IR_name + " t0";
         Func_Init.push_back(init_out);
         init_out = IF_DEEP() + "t1 = " + to_string(*(ToInt(yyvsp[0])));
         Func_Init.push_back(init_out);
