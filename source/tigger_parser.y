@@ -58,6 +58,7 @@ struct IDENT_scope{
     bool IDENT_if_array;       //是否为数组变量
     int Param_num;
     int Stack_loc;       //在函数中的位置
+    int IF_Global;
 
     IDENT_scope(string name,string ir_name){       //常量的构造函数
         IDENT_name = name;
@@ -141,6 +142,21 @@ int Stack_Func_nparam;    //已经被占用的栈空间的大小
 int s_num = 1;    // 始终保留s0用于最后的返回
 
 
+void IDENT_Assign(IDENT_scope* tmp1, string str2 ){
+    // ass_num用于处理给数组赋值的情况
+    if(tmp1->IF_Global == 0 && tmp1->IDENT_if_array == 0 ){ // 非数组的局部变量
+        other_out = IF_DEEP() + "store " + str2 + " " + tmp1->IR_name;
+        Func_Other.push_back(other_out);
+    }
+    else{
+        other_out = IF_DEEP() + "loadaddr " + tmp1->IR_name + " s" + to_string(s_num);
+        Func_Other.push_back(other_out);
+        other_out = IF_DEEP() + "s" + to_string(s_num) + "[0] = " + str2;
+        Func_Other.push_back(other_out);
+        s_num ++;
+    }
+}
+
 %}
 
 %token ADD SUB MUL DIV MOD
@@ -178,6 +194,7 @@ Declaration:
         if(Flag_def_out == 1){          //如果是全局变量，需要初始化为0
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($2)),("v" + to_string(VAR_v_num)));
             VAR_v_num ++;
+            tmp_ptr->IF_Global = 1;
             Scope.push_back(*tmp_ptr);
             other_out = IF_DEEP() + tmp_ptr->IR_name + " = 0";
             Func_Other.push_back(other_out);
@@ -186,6 +203,7 @@ Declaration:
             // out << "in else " + *(ToStr($2)) << endl;
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($2)),"");
             tmp_ptr->IR_name = to_string(Stack_Func_size);
+            tmp_ptr->IF_Global = 0;
             Scope.push_back(*tmp_ptr);
         }
         Stack_Func_size ++;    //函数需要的栈空间 + 1
@@ -195,6 +213,7 @@ Declaration:
         if(Flag_def_out == 1){
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),("v" + to_string(VAR_v_num)));
             VAR_v_num ++;
+            tmp_ptr->IF_Global = 1;
             tmp_ptr->Array_size = *ToInt($2);
             tmp_ptr->IDENT_if_array = 1;
             Scope.push_back(*tmp_ptr);
@@ -209,6 +228,7 @@ Declaration:
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),"");
             tmp_ptr->Array_size = *ToInt($2);
             tmp_ptr->IDENT_if_array = 1;
+            tmp_ptr->IF_Global = 0;
             tmp_ptr->IR_name = to_string(Stack_Func_size);
             Stack_Func_size += tmp_ptr->Array_size;    //函数需要的栈空间 + 1
             Scope.push_back(*tmp_ptr);
@@ -335,8 +355,11 @@ Expression:
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
         
-        other_out = IF_DEEP() + "store " + (*(ToStr($3))) + " " + tmp_ptr1->IR_name;
-        Func_Other.push_back(other_out);
+        IDENT_Assign(tmp_ptr1, (*(ToStr($3))));
+        // other_out = IF_DEEP() + "store " + (*(ToStr($3))) + " " + tmp_ptr1->IR_name;
+        // Func_Other.push_back(other_out);
+
+        s_num = 1;
     }
     | IDENT ASSIGN OP RightValue
     {
@@ -344,9 +367,13 @@ Expression:
 
         other_out = IF_DEEP() + "s0 = " + (*ToStr($3)) + " " + (*ToStr($4));
         Func_Other.push_back(other_out);
+
+        IDENT_Assign(tmp_ptr1, "s0");
         
-        other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
-        Func_Other.push_back(other_out);
+        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        // Func_Other.push_back(other_out);
+
+        s_num = 1;
     }
     | IDENT ASSIGN RightValue BinOp RightValue
     {
@@ -355,8 +382,46 @@ Expression:
         other_out = IF_DEEP() + "s0 = " + (*ToStr($3)) + " " + (*ToStr($4)) + " " + (*ToStr($5));
         Func_Other.push_back(other_out);
 
-        other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        IDENT_Assign(tmp_ptr1, "s0");
+        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        // Func_Other.push_back(other_out);
+
+        s_num = 1;
+    }
+    | IDENT LBRAC RightValue RBRAC ASSIGN RightValue
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
+        other_out = IF_DEEP() + "loadaddr " + tmp_ptr1->IR_name + " s0";
         Func_Other.push_back(other_out);
+
+        other_out = IF_DEEP() + "s0 = s0 + " + (*(ToStr($3)));
+        Func_Other.push_back(other_out);
+
+        other_out = IF_DEEP() + "s0[0] = " + (*(ToStr($6)));
+        Func_Other.push_back(other_out);
+
+        s_num = 1;
+    }
+    | IDENT ASSIGN IDENT LBRAC RightValue RBRAC 
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
+        IDENT_scope* tmp_ptr2 = find_define(*(ToStr($3)));
+
+        string* tmp_name = new string("s" + to_string(s_num));
+        other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " " + (*tmp_name);
+        Func_Other.push_back(other_out);
+
+        other_out = IF_DEEP() + (*tmp_name) + " = " + (*tmp_name) + " + "+ (*(ToStr($5)));
+        Func_Other.push_back(other_out);
+
+        other_out = IF_DEEP() + "s0 = " + (*tmp_name) + "[0]";
+        Func_Other.push_back(other_out);
+
+        IDENT_Assign(tmp_ptr1, "s0");
+        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
+        // Func_Other.push_back(other_out);
+
+        s_num = 1;
     }
 ;
 
