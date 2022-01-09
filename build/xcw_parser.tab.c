@@ -528,16 +528,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  15
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   31
+#define YYLAST   32
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  18
+#define YYNRULES  19
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  36
+#define YYNSTATES  37
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   286
@@ -587,7 +587,7 @@ static const yytype_uint8 yytranslate[] =
 static const yytype_uint16 yyrline[] =
 {
        0,   126,   126,   127,   131,   135,   139,   146,   163,   191,
-     209,   233,   240,   280,   291,   292,   296,   300,   304
+     209,   233,   240,   280,   291,   292,   296,   300,   304,   314
 };
 #endif
 
@@ -631,10 +631,10 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-     -14,    -6,   -15,   -11,     0,   -19,   -19,   -19,   -19,   -12,
-      -8,     2,   -13,   -19,     3,   -19,   -19,     4,   -19,   -18,
-     -19,   -19,   -19,     1,   -19,     5,     6,    -7,   -19,   -19,
-      17,   -19,   -19,   -19,     9,   -19
+     -14,    -6,   -15,    -8,     0,   -19,   -19,   -19,   -19,   -12,
+       2,     3,   -13,   -19,     4,   -19,   -19,    15,   -19,   -18,
+     -19,   -19,   -19,     5,   -19,     6,    -9,    -5,   -19,   -19,
+      16,   -19,   -19,   -19,   -19,    10,   -19
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -645,13 +645,13 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     0,     0,     2,     4,     5,     6,     0,
        0,     0,     0,     7,     0,     1,     3,     0,    16,     0,
       14,    17,     9,     0,     8,     0,     0,     0,    11,    15,
-       0,    12,    18,    13,     0,    10
+       0,    12,    18,    19,    13,     0,    10
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -19,   -19,    24,    -1,   -19,   -19,   -19,   -19,   -19,    12,
+     -19,   -19,    27,    -1,   -19,   -19,   -19,   -19,   -19,    13,
      -19
 };
 
@@ -667,18 +667,18 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      15,    17,    10,    12,    13,     1,    24,    17,    18,    14,
-      22,     2,    26,    27,    11,     2,     3,     2,    18,     1,
-      23,    25,    30,    33,    32,    34,    31,    35,    16,     2,
-       3,    29
+      15,    17,    10,    12,    13,     1,    24,    17,    18,    32,
+      33,     2,    14,    27,    11,     2,     3,     2,    18,     1,
+      22,    23,    25,    26,    35,    34,    30,    31,    36,     2,
+       3,    16,    29
 };
 
 static const yytype_uint8 yycheck[] =
 {
-       0,    19,     8,    18,    19,    19,    19,    19,     9,    20,
-      18,    29,     8,    31,    20,    29,    30,    29,    19,    19,
-      18,    18,    21,    30,    18,     8,    21,    18,     4,    29,
-      30,    19
+       0,    19,     8,    18,    19,    19,    19,    19,     9,    18,
+      19,    29,    20,    31,    20,    29,    30,    29,    19,    19,
+      18,    18,    18,     8,     8,    30,    21,    21,    18,    29,
+      30,     4,    19
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -688,21 +688,21 @@ static const yytype_uint8 yystos[] =
        0,    19,    29,    30,    33,    34,    35,    36,    37,    38,
        8,    20,    18,    19,    20,     0,    34,    19,    35,    40,
       41,    42,    18,    18,    19,    18,     8,    31,    39,    41,
-      21,    21,    18,    30,     8,    18
+      21,    21,    18,    19,    30,     8,    18
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
        0,    32,    33,    33,    34,    34,    34,    35,    35,    36,
-      36,    37,    38,    39,    40,    40,    41,    41,    42
+      36,    37,    38,    39,    40,    40,    41,    41,    42,    42
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     1,     2,     3,     3,
-       6,     3,     4,     2,     1,     2,     1,     1,     3
+       6,     3,     4,     2,     1,     2,     1,     1,     3,     3
 };
 
 
@@ -1591,8 +1591,29 @@ yyreduce:
 #line 1592 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
+  case 19:
+#line 315 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-2])));
+        IDENT_scope* tmp_ptr2 = find_define(*(ToStr(yyvsp[0])));
 
-#line 1596 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+        if(tmp_ptr2->IDENT_if_array){
+            other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " s1";
+            Func_Other.push_back(other_out);
+        }
+        else{
+            other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " s1";
+            Func_Other.push_back(other_out);
+        }
+        
+        other_out = IF_DEEP() + "store s1 " + tmp_ptr1->IR_name;
+        Func_Other.push_back(other_out);
+    }
+#line 1613 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+
+#line 1617 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1823,7 +1844,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 320 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
+#line 338 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
 
 
 void yyerror(const char *s) {

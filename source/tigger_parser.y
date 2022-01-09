@@ -311,8 +311,26 @@ Expression:
         other_out = IF_DEEP() + "store s1 " + tmp_ptr->IR_name;
         Func_Other.push_back(other_out);
     }
+    | IDENT ASSIGN IDENT
+    {
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
+        IDENT_scope* tmp_ptr2 = find_define(*(ToStr($3)));
 
+        if(tmp_ptr2->IDENT_if_array){
+            other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " s1";
+            Func_Other.push_back(other_out);
+        }
+        else{
+            other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " s1";
+            Func_Other.push_back(other_out);
+        }
+        
+        other_out = IF_DEEP() + "store s1 " + tmp_ptr1->IR_name;
+        Func_Other.push_back(other_out);
+    }
 ;
+
+
 
 
 

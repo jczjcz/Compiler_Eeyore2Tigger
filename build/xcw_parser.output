@@ -53,6 +53,7 @@ Grammar
    16          | Expression
 
    17 Expression: IDENT ASSIGN NUM
+   18           | IDENT ASSIGN IDENT
 
 
 Terminals, with rules where they appear
@@ -64,7 +65,7 @@ SUB (259)
 MUL (260)
 DIV (261)
 MOD (262)
-ASSIGN (263) 8 9 17
+ASSIGN (263) 8 9 17 18
 EQ (264)
 NEQ (265)
 LE (266)
@@ -75,7 +76,7 @@ NOT (270)
 AND (271)
 OR (272)
 NUM (273) 7 8 9 11 17
-IDENT (274) 6 7 8 9 17
+IDENT (274) 6 7 8 9 17 18
 LBRAC (275) 9 11
 RBRAC (276) 9 11
 IF (277)
@@ -113,7 +114,7 @@ Statements (40)
 Statement (41)
     on left: 15 16, on right: 13 14
 Expression (42)
-    on left: 17, on right: 16
+    on left: 17 18, on right: 16
 
 
 State 0
@@ -267,6 +268,7 @@ State 16
 State 17
 
    17 Expression: IDENT . ASSIGN NUM
+   18           | IDENT . ASSIGN IDENT
 
     ASSIGN  shift, and go to state 26
 
@@ -338,15 +340,17 @@ State 25
 State 26
 
    17 Expression: IDENT ASSIGN . NUM
+   18           | IDENT ASSIGN . IDENT
 
-    NUM  shift, and go to state 32
+    NUM    shift, and go to state 32
+    IDENT  shift, and go to state 33
 
 
 State 27
 
    12 FunctionEnd: END . FUNC
 
-    FUNC  shift, and go to state 33
+    FUNC  shift, and go to state 34
 
 
 State 28
@@ -367,7 +371,7 @@ State 30
 
     9 Initialization: IDENT LBRAC NUM RBRAC . ASSIGN NUM
 
-    ASSIGN  shift, and go to state 34
+    ASSIGN  shift, and go to state 35
 
 
 State 31
@@ -386,19 +390,26 @@ State 32
 
 State 33
 
+   18 Expression: IDENT ASSIGN IDENT .
+
+    $default  reduce using rule 18 (Expression)
+
+
+State 34
+
    12 FunctionEnd: END FUNC .
 
     $default  reduce using rule 12 (FunctionEnd)
 
 
-State 34
+State 35
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN . NUM
 
-    NUM  shift, and go to state 35
+    NUM  shift, and go to state 36
 
 
-State 35
+State 36
 
     9 Initialization: IDENT LBRAC NUM RBRAC ASSIGN NUM .
 

@@ -5,7 +5,8 @@ T2 = 5
 f_a [3]
     var T5
     var 5 T4
-    T4 = 3
+    T5 = T3
+
 end f_a
 
 
