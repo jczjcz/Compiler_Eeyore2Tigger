@@ -3,8 +3,9 @@ var  40 T3
 T2 = 1
 T2 = 5
 f_a [3]
-    var T3
-    T3 = 1
+    var T5
+    var 5 T4
+    T4 = 3
 end f_a
 
 

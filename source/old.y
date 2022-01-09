@@ -68,7 +68,7 @@ string IF_DEEP(){
     return str_if_deep;
 }
 string IF_DEEP_DEF(){
-    string str_if_deep = "";
+    string str_if_deep = "s";
     if(DEEP!=0)
         str_if_deep += "\t";
     //str_if_deep = DEEP * "\t";

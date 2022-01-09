@@ -107,7 +107,7 @@ int Flag_IF_nfunc = 0;
 //---------------------函数回填相关----------------
 int Loc_Func_def;    //函数被定义的位置，用于最后的回填  
 int Stack_Func_size;    //函数需要栈空间的大小
-int Stack_Func_inuse;    //已经被占用的栈空间的大小
+int Stack_Func_nparam;    //已经被占用的栈空间的大小
 
 
 
@@ -153,22 +153,37 @@ Declaration:
             Func_Other.push_back(other_out);
         }
         else{
+            // out << "in else " + *(ToStr($2)) << endl;
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($2)),"");
-            tmp_ptr->Stack_loc = Stack_Func_size;
+            tmp_ptr->IR_name = to_string(Stack_Func_size);
+            Scope.push_back(*tmp_ptr);
         }
-
+        Stack_Func_size ++;    //函数需要的栈空间 + 1
     }
     | VAR NUM IDENT
     {
-        IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),("v" + to_string(VAR_v_num)));
-        VAR_v_num ++;
-        tmp_ptr->Array_size = *ToInt($2);
-        tmp_ptr->IDENT_if_array = 1;
-        Scope.push_back(*tmp_ptr);
-        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
+        if(Flag_def_out == 1){
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),("v" + to_string(VAR_v_num)));
+            VAR_v_num ++;
+            tmp_ptr->Array_size = *ToInt($2);
+            tmp_ptr->IDENT_if_array = 1;
+            Scope.push_back(*tmp_ptr);
 
-        other_out = IF_DEEP() + tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
-        Func_Other.push_back(other_out);
+            other_out = IF_DEEP() + tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
+            Func_Other.push_back(other_out);
+
+            Stack_Func_size ++;    //函数需要的栈空间 + 1
+        }
+        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
+        else{
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),"");
+            tmp_ptr->Array_size = *ToInt($2);
+            tmp_ptr->IDENT_if_array = 1;
+            tmp_ptr->IR_name = to_string(Stack_Func_size);
+            Stack_Func_size += tmp_ptr->Array_size;    //函数需要的栈空间 + 1
+            Scope.push_back(*tmp_ptr);
+            // out << "in else " + *(ToStr($3)) << endl;
+        }
     }
 ;
 
@@ -225,7 +240,7 @@ FunctionHeader:
     FUNC LBRAC NUM RBRAC
     {
         Flag_def_out = 0;    //表示已经在函数内部
-        Stack_Func_inuse = 0;   //已占用的栈空间初始化为0
+        Stack_Func_size = 0;
 
         if((*(ToStr($1))) == "f_main"){
             init_out = "return";       //单纯用来输出定义
@@ -239,14 +254,14 @@ FunctionHeader:
         tmp_ptr->Param_num = *ToInt($3);
         Scope.push_back(*tmp_ptr);
         Loc_Func_def = Func_Other.size();     //记录当前函数最后的位置，用来插入定义语句
-        Stack_Func_size = *ToInt($3);    // 初始化为参数的大小
+        Stack_Func_nparam = *ToInt($3);    // 初始化为参数的大小
         other_out = (*(ToStr($1))) + " [" + to_string(*ToInt($3)) + "] ";
         Func_Other.push_back(other_out);
 
-        while(Stack_Func_inuse < Stack_Func_size){
-            other_out = IF_DEEP() + "store a" + to_string(Stack_Func_inuse) + " " + to_string(Stack_Func_inuse);
+        while(Stack_Func_size < Stack_Func_nparam){
+            other_out = IF_DEEP() + "store a" + to_string(Stack_Func_size) + " " + to_string(Stack_Func_size);
             Func_Other.push_back(other_out);
-            Stack_Func_inuse ++;
+            Stack_Func_size ++;
         }
 
         if((*(ToStr($1))) == "f_main"){
@@ -280,7 +295,7 @@ Statements:
 Statement:
     Declaration
     {
-        Stack_Func_size ++;    //函数需要的栈空间 + 1
+        
     }
     | Expression
 ;
@@ -288,12 +303,12 @@ Statement:
 Expression:
     IDENT ASSIGN NUM
     {     //对应 T0 = 1 的情况
-        // other_out = "tttttttttttttest--------------";
-        // Func_Other.push_back(other_out);
         IDENT_scope* tmp_ptr = find_define(*(ToStr($1)));
+
         other_out = IF_DEEP() + "s1 = " + to_string(*ToInt($3));
         Func_Other.push_back(other_out);
-        other_out = IF_DEEP() + "store s1 " + to_string(tmp_ptr->Stack_loc);
+
+        other_out = IF_DEEP() + "store s1 " + tmp_ptr->IR_name;
         Func_Other.push_back(other_out);
     }
 

@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:337  */
+#line 1 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:337  */
 
 #define YYSTYPE void*
 #define ToInt(k) ((int*)(k))
@@ -176,12 +176,12 @@ int Flag_IF_nfunc = 0;
 //---------------------函数回填相关----------------
 int Loc_Func_def;    //函数被定义的位置，用于最后的回填  
 int Stack_Func_size;    //函数需要栈空间的大小
-int Stack_Func_inuse;    //已经被占用的栈空间的大小
+int Stack_Func_nparam;    //已经被占用的栈空间的大小
 
 
 
 
-#line 185 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
+#line 185 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
 #   if 201103L <= __cplusplus
@@ -204,8 +204,8 @@ int Stack_Func_inuse;    //已经被占用的栈空间的大小
 
 /* In a future release of Bison, this section will be replaced
    by #include "xcw_parser.tab.h".  */
-#ifndef YY_YY_HOME_XCW_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED
-# define YY_YY_HOME_XCW_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_HOME_XCW_XCW2_COMPILER_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED
+# define YY_YY_HOME_XCW_XCW2_COMPILER_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -293,7 +293,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_HOME_XCW_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_HOME_XCW_XCW2_COMPILER_COMPILER_EEYORE2TIGGER_BUILD_XCW_PARSER_TAB_H_INCLUDED  */
 
 
 
@@ -586,8 +586,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   126,   126,   127,   131,   135,   139,   146,   161,   176,
-     194,   218,   225,   265,   276,   277,   281,   285,   289
+       0,   126,   126,   127,   131,   135,   139,   146,   163,   191,
+     209,   233,   240,   280,   291,   292,   296,   300,   304
 };
 #endif
 
@@ -1388,31 +1388,31 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 132 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 132 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Out_Print("other");
     }
-#line 1396 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1396 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 5:
-#line 136 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 136 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         // Out_Print("init");
     }
-#line 1404 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1404 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 6:
-#line 140 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 140 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Out_Print("other");
     }
-#line 1412 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1412 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 7:
-#line 147 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 147 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         if(Flag_def_out == 1){          //如果是全局变量，需要初始化为0
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
@@ -1422,32 +1422,47 @@ yyreduce:
             Func_Other.push_back(other_out);
         }
         else{
+            // out << "in else " + *(ToStr($2)) << endl;
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),"");
-            tmp_ptr->Stack_loc = Stack_Func_size;
+            tmp_ptr->IR_name = to_string(Stack_Func_size);
+            Scope.push_back(*tmp_ptr);
         }
-
+        Stack_Func_size ++;    //函数需要的栈空间 + 1
     }
-#line 1431 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1433 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 8:
-#line 162 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 164 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
-        IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
-        VAR_v_num ++;
-        tmp_ptr->Array_size = *ToInt(yyvsp[-1]);
-        tmp_ptr->IDENT_if_array = 1;
-        Scope.push_back(*tmp_ptr);
-        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
+        if(Flag_def_out == 1){
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
+            VAR_v_num ++;
+            tmp_ptr->Array_size = *ToInt(yyvsp[-1]);
+            tmp_ptr->IDENT_if_array = 1;
+            Scope.push_back(*tmp_ptr);
 
-        other_out = IF_DEEP() + tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
-        Func_Other.push_back(other_out);
+            other_out = IF_DEEP() + tmp_ptr->IR_name + " = malloc " + to_string(tmp_ptr->Array_size);
+            Func_Other.push_back(other_out);
+
+            Stack_Func_size ++;    //函数需要的栈空间 + 1
+        }
+        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
+        else{
+            IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),"");
+            tmp_ptr->Array_size = *ToInt(yyvsp[-1]);
+            tmp_ptr->IDENT_if_array = 1;
+            tmp_ptr->IR_name = to_string(Stack_Func_size);
+            Stack_Func_size += tmp_ptr->Array_size;    //函数需要的栈空间 + 1
+            Scope.push_back(*tmp_ptr);
+            // out << "in else " + *(ToStr($3)) << endl;
+        }
     }
-#line 1447 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1462 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 9:
-#line 177 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 192 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         DEEP = 1;
         if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
@@ -1465,11 +1480,11 @@ yyreduce:
 
         DEEP = 0;
     }
-#line 1469 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1484 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 10:
-#line 195 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 210 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         DEEP = 1;
         if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
@@ -1490,22 +1505,22 @@ yyreduce:
 
         DEEP = 0;
     }
-#line 1494 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1509 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 11:
-#line 219 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 234 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Func_Other[0] += ("[" + to_string(Stack_Func_size) + "]");
     }
-#line 1502 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1517 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 12:
-#line 226 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 241 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Flag_def_out = 0;    //表示已经在函数内部
-        Stack_Func_inuse = 0;   //已占用的栈空间初始化为0
+        Stack_Func_size = 0;
 
         if((*(ToStr(yyvsp[-3]))) == "f_main"){
             init_out = "return";       //单纯用来输出定义
@@ -1519,14 +1534,14 @@ yyreduce:
         tmp_ptr->Param_num = *ToInt(yyvsp[-1]);
         Scope.push_back(*tmp_ptr);
         Loc_Func_def = Func_Other.size();     //记录当前函数最后的位置，用来插入定义语句
-        Stack_Func_size = *ToInt(yyvsp[-1]);    // 初始化为参数的大小
+        Stack_Func_nparam = *ToInt(yyvsp[-1]);    // 初始化为参数的大小
         other_out = (*(ToStr(yyvsp[-3]))) + " [" + to_string(*ToInt(yyvsp[-1])) + "] ";
         Func_Other.push_back(other_out);
 
-        while(Stack_Func_inuse < Stack_Func_size){
-            other_out = IF_DEEP() + "store a" + to_string(Stack_Func_inuse) + " " + to_string(Stack_Func_inuse);
+        while(Stack_Func_size < Stack_Func_nparam){
+            other_out = IF_DEEP() + "store a" + to_string(Stack_Func_size) + " " + to_string(Stack_Func_size);
             Func_Other.push_back(other_out);
-            Stack_Func_inuse ++;
+            Stack_Func_size ++;
         }
 
         if((*(ToStr(yyvsp[-3]))) == "f_main"){
@@ -1539,11 +1554,11 @@ yyreduce:
 
         
     }
-#line 1543 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1558 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 13:
-#line 266 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 281 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         other_out = "end " + (*ToStr(yyvsp[0]));
         Func_Other.push_back(other_out);   //输出end
@@ -1551,33 +1566,33 @@ yyreduce:
 
         Flag_def_out = 1;
     }
-#line 1555 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1570 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 16:
-#line 282 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 297 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
-        Stack_Func_size ++;    //函数需要的栈空间 + 1
+        
     }
-#line 1563 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1578 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 18:
-#line 290 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 305 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {     //对应 T0 = 1 的情况
-        // other_out = "tttttttttttttest--------------";
-        // Func_Other.push_back(other_out);
         IDENT_scope* tmp_ptr = find_define(*(ToStr(yyvsp[-2])));
+
         other_out = IF_DEEP() + "s1 = " + to_string(*ToInt(yyvsp[0]));
         Func_Other.push_back(other_out);
-        other_out = IF_DEEP() + "store s1 " + to_string(tmp_ptr->Stack_loc);
+
+        other_out = IF_DEEP() + "store s1 " + tmp_ptr->IR_name;
         Func_Other.push_back(other_out);
     }
-#line 1577 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1592 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
 
-#line 1581 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1596 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1808,7 +1823,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 305 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
+#line 320 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
 
 
 void yyerror(const char *s) {

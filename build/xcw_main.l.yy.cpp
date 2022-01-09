@@ -1,6 +1,6 @@
-#line 2 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 2 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
-#line 4 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 4 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -511,8 +511,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
-#line 2 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 1 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 2 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 #define YYSTYPE void*
 #include <iostream>
 #include <string>
@@ -520,8 +520,8 @@ char *yytext;
 #include "xcw_parser.tab.h"
 using namespace std;
 int charNum = 1;
-#line 524 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
-#line 525 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 524 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 525 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
 #define INITIAL 0
 
@@ -738,9 +738,9 @@ YY_DECL
 		}
 
 	{
-#line 18 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 18 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 
-#line 744 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 744 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -809,53 +809,53 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 19 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng;}
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 20 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 20 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum = 1;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 21 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return IF;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 22 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return RETURN;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 23 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return VAR;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 24 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return GOTO;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 25 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 25 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return CALL;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 26 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 26 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return PARAM;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 27 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 27 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += yyleng; return END;}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 28 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 28 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
     charNum += yyleng;
     yylval = new string(yytext);
@@ -864,7 +864,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 33 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 33 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
     charNum += yyleng;
     yylval = new string(yytext);
@@ -873,7 +873,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 38 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 38 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
     charNum += yyleng;
     yylval = new string(yytext);
@@ -882,7 +882,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 43 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 43 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
     charNum += yyleng;
     yylval = new int(strtol(yytext, nullptr, 10));
@@ -891,7 +891,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 48 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 48 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {
     charNum += yyleng;
     yylval = new int(strtol(yytext, nullptr, 10));
@@ -900,92 +900,92 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 53 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 53 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return COLON;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 54 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 54 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return ADD;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 55 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 55 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return SUB;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 56 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 56 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return MUL;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 57 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 57 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return DIV;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 58 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 58 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return LE;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 59 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 59 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return LEQ;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 60 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 60 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return GE;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 61 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 61 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return GEQ;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 62 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 62 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return EQ;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 63 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 63 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return NEQ;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 64 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 64 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return ASSIGN;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 65 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 65 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return LBRAC;}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 66 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 66 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return RBRAC;}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 67 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 67 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return AND;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 68 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 68 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {charNum += 2; return OR;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 69 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 69 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return NOT;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 70 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 70 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {++charNum; return MOD;}
 	YY_BREAK
 case 33:
@@ -993,15 +993,15 @@ case 33:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 72 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 72 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 {/* Single line comment */}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 73 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 73 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 ECHO;
 	YY_BREAK
-#line 1005 "/home/xcw/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
+#line 1005 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_main.l.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2018,7 +2018,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "/home/xcw/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
+#line 73 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_scanner.l"
 
 
 int yywrap() {
