@@ -440,9 +440,14 @@ Expression:
         IDENT_scope* tmp_ptr2 = find_define(*(ToStr($3)));
 
         string* tmp_name = new string("s" + to_string(s_num));
-        other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " " + (*tmp_name);
-        Func_Other.push_back(other_out);
-
+        if(tmp_ptr2->IDENT_if_array){
+            other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " " + (*tmp_name);
+            Func_Other.push_back(other_out);
+        }
+        else{
+            other_out = IF_DEEP() + "load " + tmp_ptr2->IR_name + " " + (*tmp_name);
+            Func_Other.push_back(other_out);
+        }
         other_out = IF_DEEP() + (*tmp_name) + " = " + (*tmp_name) + " + "+ (*(ToStr($5)));
         Func_Other.push_back(other_out);
 
