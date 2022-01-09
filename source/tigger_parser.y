@@ -132,6 +132,7 @@ int Flag_init_in_func;            // 表示变量初始化是否在函数中，�
 int Flag_def_out = 1;            // 表示变量是否为全局变量
 
 int Flag_IF_nfunc = 0;
+int Flag_f_init_nfunc = 0;  
 
 //---------------------函数回填相关----------------
 int Loc_Func_def;    //函数被定义的位置，用于最后的回填  
@@ -295,9 +296,14 @@ FunctionHeader:
         Stack_Func_size = 0;
 
         if((*(ToStr($1))) == "f_main"){
-            init_out = "return";       //单纯用来输出定义
-            Func_Init.push_back(init_out);
-            Out_Print("init");      //如果遇到main函数，就先把之前的初始化语句在函数init_nfunc中输出来
+            if(!Func_Init.empty()){
+                init_out = "\treturn";       //单纯用来输出定义
+                Func_Init.push_back(init_out);
+                init_out = "end f_init_nfunc";       
+                Func_Init.push_back(init_out);
+                Out_Print("init");      //如果遇到main函数，就先把之前的初始化语句在函数init_nfunc中输出来
+            }
+            
         }
 
         DEEP ++;
