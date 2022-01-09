@@ -210,6 +210,8 @@ int Stack_Func_nparam;    //已经被占用的栈空间的大小
 //=-------------------------------
 int s_num = 1;    // 始终保留s0用于最后的返回
 
+int VAR_a_num = 0;    // 函数参数寄存器
+
 
 void IDENT_Assign(IDENT_scope* tmp1, string str2 ){
     // ass_num用于处理给数组赋值的情况
@@ -227,7 +229,7 @@ void IDENT_Assign(IDENT_scope* tmp1, string str2 ){
 }
 
 
-#line 231 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
+#line 233 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:337  */
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
 #   if 201103L <= __cplusplus
@@ -574,16 +576,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  15
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   62
+#define YYLAST   92
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  15
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  37
+#define YYNRULES  45
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  64
+#define YYNSTATES  82
 
 #define YYUNDEFTOK  2
 #define YYMAXUTOK   286
@@ -632,10 +634,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   172,   172,   173,   177,   181,   185,   192,   211,   241,
-     259,   283,   290,   330,   341,   342,   346,   350,   354,   364,
-     378,   391,   405,   429,   430,   434,   435,   436,   437,   438,
-     442,   443,   444,   445,   446,   447,   451,   468
+       0,   174,   174,   175,   179,   183,   187,   194,   213,   243,
+     261,   285,   292,   332,   343,   344,   348,   352,   356,   366,
+     380,   393,   407,   428,   434,   440,   446,   453,   460,   466,
+     474,   486,   487,   491,   492,   493,   494,   495,   499,   500,
+     501,   502,   503,   504,   508,   525
 };
 #endif
 
@@ -666,10 +669,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -28
+#define YYPACT_NINF -22
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-28)))
+  (!!((Yystate) == (-22)))
 
 #define YYTABLE_NINF -1
 
@@ -680,13 +683,15 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -4,     2,   -11,     8,     1,   -28,   -28,   -28,   -28,   -13,
-      -9,    22,    29,   -28,    31,   -28,   -28,     4,   -28,    -8,
-     -28,   -28,   -28,    30,   -28,    33,    -1,    14,    23,   -28,
-     -28,    42,   -28,   -28,   -28,   -28,   -28,   -28,   -28,    35,
-      14,    32,   -28,    36,   -28,    34,    14,   -28,   -28,   -28,
-     -28,   -28,   -28,   -28,    14,   -28,   -28,    48,   -28,    37,
-     -28,    14,   -28,   -28
+       8,     2,   -10,    -6,     1,   -22,   -22,   -22,   -22,    56,
+      -1,     3,    -3,   -22,     6,   -22,   -22,     5,    10,    11,
+       4,    10,     9,    10,   -22,    45,   -22,   -22,   -22,    13,
+     -22,    15,     0,    10,   -22,   -22,    77,   -22,   -22,   -22,
+     -22,   -22,    14,   -22,   -22,    32,   -22,   -22,   -22,   -22,
+     -22,   -22,    21,    16,    10,    48,    22,   -22,   -22,   -22,
+     -22,   -22,   -22,    10,   -22,    29,    10,   -22,   -22,    10,
+     -22,   -22,    41,    27,   -22,    34,   -22,    10,    42,   -22,
+     -22,   -22
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -695,26 +700,28 @@ static const yytype_int8 yypact[] =
 static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     0,     0,     2,     4,     5,     6,     0,
-       0,     0,     0,     7,     0,     1,     3,     0,    16,     0,
-      14,    17,     9,     0,     8,     0,     0,     0,     0,    11,
-      15,     0,    12,    26,    27,    28,    29,    25,    37,    36,
-       0,    18,    36,     0,    13,     0,     0,    19,    34,    35,
-      30,    31,    32,    33,     0,    23,    24,     0,    10,     0,
-      20,     0,    22,    21
+       0,     0,     0,     7,     0,     1,     3,     0,     0,     0,
+       0,     0,     0,    28,    16,     0,    14,    17,     9,     0,
+       8,     0,     0,     0,    45,    44,     0,    24,    25,    26,
+      27,    29,     0,    11,    15,     0,    12,    34,    35,    36,
+      37,    33,    44,     0,     0,    18,     0,    42,    43,    38,
+      39,    40,    41,     0,    13,     0,     0,    30,    19,     0,
+      31,    32,     0,     0,    10,     0,    20,     0,     0,    22,
+      21,    23
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -28,   -28,    55,    20,   -28,   -28,   -28,   -28,   -28,    41,
-     -28,   -28,    21,   -28,   -27
+     -22,   -22,    61,    -2,   -22,   -22,   -22,   -22,   -22,    52,
+     -22,   -22,    18,    37,   -21
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     4,     5,     6,     7,     8,     9,    29,    19,    20,
-      21,    54,    40,    56,    41
+      -1,     4,     5,     6,     7,     8,     9,    43,    25,    26,
+      27,    69,    54,    63,    36
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -722,24 +729,30 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      43,    15,    33,    34,    35,    36,    17,    12,    13,    22,
-      10,    17,    26,    47,    37,     1,     2,    38,    39,    59,
-       1,     2,    11,    28,    27,     2,     3,    60,    14,    18,
-       2,     3,    38,    42,    63,    33,    34,    35,    36,    18,
-      23,    48,    49,    50,    51,    52,    53,    37,    24,    25,
-      45,    31,    58,    44,    32,    46,    61,    57,    62,    16,
-      30,     0,    55
+      39,    15,    41,    47,    48,    49,    50,    24,    12,    13,
+      10,    55,    56,    32,    14,    51,    30,    28,    34,    52,
+       1,    29,    11,    24,    31,    33,    53,     1,    34,    35,
+       2,     3,    38,    68,    45,    37,    46,     2,     3,    40,
+      65,    66,    73,    72,    64,    75,    67,    74,    76,    77,
+      78,    47,    48,    49,    50,    79,    80,    57,    58,    59,
+      60,    61,    62,    51,    17,    16,    81,    18,    19,    20,
+      21,    22,    23,    70,     2,    17,    42,    44,    18,    19,
+      20,    21,    22,    23,     0,     2,    57,    58,    59,    60,
+      61,    62,    71
 };
 
 static const yytype_int8 yycheck[] =
 {
-      27,     0,     3,     4,     5,     6,    19,    18,    19,    18,
-       8,    19,     8,    40,    15,    19,    29,    18,    19,    46,
-      19,    29,    20,    31,    20,    29,    30,    54,    20,     9,
-      29,    30,    18,    19,    61,     3,     4,     5,     6,    19,
-      18,     9,    10,    11,    12,    13,    14,    15,    19,    18,
-       8,    21,    18,    30,    21,    20,     8,    21,    21,     4,
-      19,    -1,    41
+      21,     0,    23,     3,     4,     5,     6,     9,    18,    19,
+       8,    32,    33,     8,    20,    15,    19,    18,    18,    19,
+      19,    18,    20,    25,    18,    20,    26,    19,    18,    19,
+      29,    30,    28,    54,    21,    24,    21,    29,    30,    30,
+       8,    20,    63,    21,    30,    66,    30,    18,    69,     8,
+      23,     3,     4,     5,     6,    21,    77,     9,    10,    11,
+      12,    13,    14,    15,    19,     4,    24,    22,    23,    24,
+      25,    26,    27,    55,    29,    19,    31,    25,    22,    23,
+      24,    25,    26,    27,    -1,    29,     9,    10,    11,    12,
+      13,    14,    55
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -747,12 +760,14 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,    19,    29,    30,    33,    34,    35,    36,    37,    38,
-       8,    20,    18,    19,    20,     0,    34,    19,    35,    40,
-      41,    42,    18,    18,    19,    18,     8,    20,    31,    39,
-      41,    21,    21,     3,     4,     5,     6,    15,    18,    19,
-      44,    46,    19,    46,    30,     8,    20,    46,     9,    10,
-      11,    12,    13,    14,    43,    44,    45,    21,    18,    46,
-      46,     8,    21,    46
+       8,    20,    18,    19,    20,     0,    34,    19,    22,    23,
+      24,    25,    26,    27,    35,    40,    41,    42,    18,    18,
+      19,    18,     8,    20,    18,    19,    46,    24,    28,    46,
+      30,    46,    31,    39,    41,    21,    21,     3,     4,     5,
+       6,    15,    19,    26,    44,    46,    46,     9,    10,    11,
+      12,    13,    14,    45,    30,     8,    20,    30,    46,    43,
+      44,    45,    21,    46,    18,    46,    46,     8,    23,    21,
+      46,    24
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -760,8 +775,9 @@ static const yytype_uint8 yyr1[] =
 {
        0,    32,    33,    33,    34,    34,    34,    35,    35,    36,
       36,    37,    38,    39,    40,    40,    41,    41,    42,    42,
-      42,    42,    42,    43,    43,    44,    44,    44,    44,    44,
-      45,    45,    45,    45,    45,    45,    46,    46
+      42,    42,    42,    42,    42,    42,    42,    42,    42,    42,
+      42,    43,    43,    44,    44,    44,    44,    44,    45,    45,
+      45,    45,    45,    45,    46,    46
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -769,8 +785,9 @@ static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     2,     1,     1,     1,     2,     3,     3,
        6,     3,     4,     2,     1,     2,     1,     1,     3,     4,
-       5,     6,     6,     1,     1,     1,     1,     1,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1
+       5,     6,     6,     6,     2,     2,     2,     2,     1,     2,
+       4,     1,     1,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1
 };
 
 
@@ -1456,31 +1473,31 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 178 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 180 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Out_Print("other");
     }
-#line 1464 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1481 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 5:
-#line 182 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 184 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         // Out_Print("init");
     }
-#line 1472 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1489 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 6:
-#line 186 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 188 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Out_Print("other");
     }
-#line 1480 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1497 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 7:
-#line 193 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 195 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         if(Flag_def_out == 1){          //如果是全局变量，需要初始化为0
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
@@ -1499,11 +1516,11 @@ yyreduce:
         }
         Stack_Func_size ++;    //函数需要的栈空间 + 1
     }
-#line 1503 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1520 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 8:
-#line 212 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 214 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         if(Flag_def_out == 1){
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr(yyvsp[0])),("v" + to_string(VAR_v_num)));
@@ -1530,11 +1547,11 @@ yyreduce:
             // out << "in else " + *(ToStr($3)) << endl;
         }
     }
-#line 1534 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1551 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 9:
-#line 242 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 244 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         DEEP = 1;
         if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
@@ -1552,11 +1569,11 @@ yyreduce:
 
         DEEP = 0;
     }
-#line 1556 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1573 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 10:
-#line 260 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 262 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         DEEP = 1;
         if(Flag_init_in_func==0 && Flag_IF_nfunc == 0){
@@ -1577,19 +1594,19 @@ yyreduce:
 
         DEEP = 0;
     }
-#line 1581 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1598 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 11:
-#line 284 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 286 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Func_Other[0] += ("[" + to_string(Stack_Func_size) + "]");
     }
-#line 1589 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1606 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 12:
-#line 291 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 293 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         Flag_def_out = 0;    //表示已经在函数内部
         Stack_Func_size = 0;
@@ -1626,11 +1643,11 @@ yyreduce:
 
         
     }
-#line 1630 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1647 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 13:
-#line 331 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 333 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         other_out = "end " + (*ToStr(yyvsp[0]));
         Func_Other.push_back(other_out);   //输出end
@@ -1638,19 +1655,19 @@ yyreduce:
 
         Flag_def_out = 1;
     }
-#line 1642 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1659 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 16:
-#line 347 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 349 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         
     }
-#line 1650 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1667 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 18:
-#line 355 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 357 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-2])));
         
@@ -1660,11 +1677,11 @@ yyreduce:
 
         s_num = 1;
     }
-#line 1664 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1681 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 19:
-#line 365 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 367 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-3])));
 
@@ -1678,11 +1695,11 @@ yyreduce:
 
         s_num = 1;
     }
-#line 1682 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1699 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 20:
-#line 379 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 381 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-4])));
 
@@ -1695,11 +1712,11 @@ yyreduce:
 
         s_num = 1;
     }
-#line 1699 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1716 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 21:
-#line 392 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 394 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-5])));
         other_out = IF_DEEP() + "loadaddr " + tmp_ptr1->IR_name + " s0";
@@ -1713,11 +1730,11 @@ yyreduce:
 
         s_num = 1;
     }
-#line 1717 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1734 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
   case 22:
-#line 406 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+#line 408 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-5])));
         IDENT_scope* tmp_ptr2 = find_define(*(ToStr(yyvsp[-3])));
@@ -1738,11 +1755,98 @@ yyreduce:
 
         s_num = 1;
     }
-#line 1742 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1759 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
-  case 36:
-#line 452 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+  case 23:
+#line 429 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + "if " + (*ToStr(yyvsp[-4])) + " " + (*ToStr(yyvsp[-3])) + " " + (*ToStr(yyvsp[-2])) + " goto " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1769 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 24:
+#line 435 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + "goto " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1779 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 25:
+#line 441 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + (*ToStr(yyvsp[0])) + ":";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1789 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 26:
+#line 447 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + "a" + to_string(VAR_a_num) + " = " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        VAR_a_num ++;
+        s_num = 1;
+    }
+#line 1800 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 27:
+#line 454 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        VAR_a_num = 0;
+        other_out = IF_DEEP() + "call " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1811 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 28:
+#line 461 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + "return";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1821 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 29:
+#line 467 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        other_out = IF_DEEP() + "a0 = " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        other_out = IF_DEEP() + "return";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+#line 1833 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 30:
+#line 475 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+    {
+        VAR_a_num = 0;
+        other_out = IF_DEEP() + "call " + (*ToStr(yyvsp[0]));
+        Func_Other.push_back(other_out);
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr(yyvsp[-3])));
+        IDENT_Assign(tmp_ptr1, "a0");
+        s_num = 1;
+    }
+#line 1846 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+    break;
+
+  case 44:
+#line 509 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         // Ptr_num* tmp_ptr = new Ptr_num(*(ToStr($1)));
         // $$ = (void*)(tmp_ptr);
@@ -1759,11 +1863,11 @@ yyreduce:
         yyval = (void*)(str);
         s_num ++;
     }
-#line 1763 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1867 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
-  case 37:
-#line 469 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
+  case 45:
+#line 526 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1652  */
     {
         // Ptr_num* tmp_ptr = new Ptr_num(*(ToInt($1)));
         // $$ = (void*)(tmp_ptr);
@@ -1773,11 +1877,11 @@ yyreduce:
         yyval = (void*)(str);
         s_num ++;
     }
-#line 1777 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1881 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
     break;
 
 
-#line 1781 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
+#line 1885 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/build/xcw_parser.tab.c" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2008,7 +2112,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 485 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
+#line 542 "/home/xcw/xcw2_Compiler/Compiler_Eeyore2Tigger/source/tigger_parser.y" /* yacc.c:1918  */
 
 
 void yyerror(const char *s) {

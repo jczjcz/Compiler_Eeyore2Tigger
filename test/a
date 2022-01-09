@@ -3,22 +3,23 @@ var  40 T3
 T2 = 1
 T2 = 5
 f_a [3]
+    if T2 <= 0 goto l0
     var T5
     var 5 T4
+    goto l0
+    l0:
 
-    T2 = 2
-    T5 = 2
+    return T2
 
-    T5 = T4[3]
-    T2 = T4[3]
-
-    T4[3] = 2;
-    T3[3] = 2;
+    return
 
 end f_a
 
-
 f_main [0]
-    var T4
-end f_main
+    param T2
+    call f_a
 
+    param T2
+    T2 = call f_a
+
+end f_main

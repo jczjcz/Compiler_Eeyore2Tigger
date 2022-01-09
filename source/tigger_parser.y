@@ -141,6 +141,8 @@ int Stack_Func_nparam;    //已经被占用的栈空间的大小
 //=-------------------------------
 int s_num = 1;    // 始终保留s0用于最后的返回
 
+int VAR_a_num = 0;    // 函数参数寄存器
+
 
 void IDENT_Assign(IDENT_scope* tmp1, string str2 ){
     // ass_num用于处理给数组赋值的情况
@@ -423,6 +425,61 @@ Expression:
 
         s_num = 1;
     }
+    | IF RightValue LOGICOP RightValue GOTO LABEL
+    {
+        other_out = IF_DEEP() + "if " + (*ToStr($2)) + " " + (*ToStr($3)) + " " + (*ToStr($4)) + " goto " + (*ToStr($6));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | GOTO LABEL
+    {
+        other_out = IF_DEEP() + "goto " + (*ToStr($2));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | LABEL COLON
+    {
+        other_out = IF_DEEP() + (*ToStr($2)) + ":";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | PARAM RightValue
+    {
+        other_out = IF_DEEP() + "a" + to_string(VAR_a_num) + " = " + (*ToStr($2));
+        Func_Other.push_back(other_out);
+        VAR_a_num ++;
+        s_num = 1;
+    }
+    | CALL FUNC
+    {
+        VAR_a_num = 0;
+        other_out = IF_DEEP() + "call " + (*ToStr($2));
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | RETURN
+    {
+        other_out = IF_DEEP() + "return";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | RETURN RightValue
+    {
+        other_out = IF_DEEP() + "a0 = " + (*ToStr($2));
+        Func_Other.push_back(other_out);
+        other_out = IF_DEEP() + "return";
+        Func_Other.push_back(other_out);
+        s_num = 1;
+    }
+    | IDENT ASSIGN CALL FUNC
+    {
+        VAR_a_num = 0;
+        other_out = IF_DEEP() + "call " + (*ToStr($4));
+        Func_Other.push_back(other_out);
+        IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
+        IDENT_Assign(tmp_ptr1, "a0");
+        s_num = 1;
+    } 
 ;
 
 BinOp:
