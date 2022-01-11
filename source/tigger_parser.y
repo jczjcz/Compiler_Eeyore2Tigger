@@ -20,35 +20,6 @@ extern int yylineno;
 
 ostream &out = cout;       // 用于输出
 
-
-struct Ptr_num{             // 用来传递参数，用IF_ptr_int表示传上来的是否为常量
-    int ptr_int;
-    string ptr_str;
-    int IF_ptr_int;
-    Ptr_num(int p_int){
-        ptr_int = p_int;
-        IF_ptr_int = 1; 
-    }
-    Ptr_num(string p_str){
-        ptr_str = p_str;
-        IF_ptr_int = 0; 
-    }
-    Ptr_num(){}
-    void Print(){       //打印出数值，用于调试
-        out << "-------------Ptr_print_in------------"<<endl;
-        if(IF_ptr_int){
-            out << "IF_ptr_int = " << IF_ptr_int << endl;
-            out << ptr_int;
-        }
-        else{
-            out << "IF_ptr_int = " << IF_ptr_int << endl;
-            out << ptr_str;
-        }
-        out << endl;
-        out << "-------------Ptr_print_out------------"<<endl;
-    }
-};
-
 struct IDENT_scope{
     string IDENT_name;
     string IDENT_num;          // 变量的值可变，因此用string存储
@@ -115,16 +86,6 @@ void Out_Print(string s){
         Func_Other.clear();
         return;
     }
-    // for(int i = 0;i < Func_Init.size();i++){
-    //     out << Func_Init[i] << endl;
-    // }
-    // for(int i = 0;i < Func_Other.size();i++){
-    //     out << Func_Other[i] << endl;
-    // }
-    //out << func_other_out << endl;
-    // Func_Other.clear();
-    // Func_Init.clear();
-    // Func_Other.clear();
 }
 
 //----------------------变量初始化相关------------------
@@ -135,7 +96,6 @@ int Flag_IF_nfunc = 0;
 int Flag_f_init_nfunc = 0;  
 
 //---------------------函数回填相关----------------
-int Loc_Func_def;    //函数被定义的位置，用于最后的回填  
 int Stack_Func_size;    //函数需要栈空间的大小
 int Stack_Func_nparam;    //已经被占用的栈空间的大小
 
@@ -185,7 +145,6 @@ ProgramUnit:
     }
     | Initialization
     {
-        // Out_Print("init");
     }
     | FunctionDef
     {
@@ -228,7 +187,6 @@ Declaration:
 
             Stack_Func_size ++;    //函数需要的栈空间 + 1
         }
-        // out << "IR_name = "<<tmp_ptr->IR_name<<endl;
         else{
             IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($3)),"");
             tmp_ptr->Array_size = *ToInt($2);
@@ -237,7 +195,6 @@ Declaration:
             tmp_ptr->IR_name = to_string(Stack_Func_size);
             Stack_Func_size += (tmp_ptr->Array_size/4);    //函数需要的栈空间 + 1
             Scope.push_back(*tmp_ptr);
-            // out << "in else " + *(ToStr($3)) << endl;
         }
     }
 ;
@@ -314,7 +271,6 @@ FunctionHeader:
         IDENT_scope* tmp_ptr = new IDENT_scope(*(ToStr($1)),"");
         tmp_ptr->Param_num = *ToInt($3);
         Scope.push_back(*tmp_ptr);
-        Loc_Func_def = Func_Other.size();     //记录当前函数最后的位置，用来插入定义语句
         Stack_Func_nparam = *ToInt($3);    // 初始化为参数的大小
         other_out = (*(ToStr($1))) + " [" + to_string(*ToInt($3)) + "] ";
         Func_Other.push_back(other_out);
@@ -367,11 +323,9 @@ Statement:
     Declaration
     {
         Func_stack_num += 1;   // 每次进行定义，个数+1
-        // Out_Print("other");
     }
     | Expression
     {
-        // Out_Print("other");
     }
 ;
 
@@ -381,8 +335,6 @@ Expression:
         IDENT_scope* tmp_ptr1 = find_define(*(ToStr($1)));
         
         IDENT_Assign(tmp_ptr1, (*(ToStr($3))));
-        // other_out = IF_DEEP() + "store " + (*(ToStr($3))) + " " + tmp_ptr1->IR_name;
-        // Func_Other.push_back(other_out);
 
         s_num = 1;
     }
@@ -394,9 +346,6 @@ Expression:
         Func_Other.push_back(other_out);
 
         IDENT_Assign(tmp_ptr1, "s0");
-        
-        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
-        // Func_Other.push_back(other_out);
 
         s_num = 1;
     }
@@ -408,8 +357,6 @@ Expression:
         Func_Other.push_back(other_out);
 
         IDENT_Assign(tmp_ptr1, "s0");
-        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
-        // Func_Other.push_back(other_out);
 
         s_num = 1;
     }
@@ -455,8 +402,6 @@ Expression:
         Func_Other.push_back(other_out);
 
         IDENT_Assign(tmp_ptr1, "s0");
-        // other_out = IF_DEEP() + "store s0 " + tmp_ptr1->IR_name;
-        // Func_Other.push_back(other_out);
 
         s_num = 1;
     }
@@ -543,8 +488,6 @@ LOGICOP:
 RightValue:
     IDENT
     {
-        // Ptr_num* tmp_ptr = new Ptr_num(*(ToStr($1)));
-        // $$ = (void*)(tmp_ptr);
         IDENT_scope* tmp_ptr2 = find_define(*(ToStr($1)));
         if(tmp_ptr2->IDENT_if_array){
             other_out = IF_DEEP() + "loadaddr " + tmp_ptr2->IR_name + " s" + to_string(s_num);
@@ -560,8 +503,6 @@ RightValue:
     }
     | NUM
     {
-        // Ptr_num* tmp_ptr = new Ptr_num(*(ToInt($1)));
-        // $$ = (void*)(tmp_ptr);
         other_out = IF_DEEP() + "s" + to_string(s_num) + " = " + to_string(*ToInt($1));
         Func_Other.push_back(other_out);
         string* str = new string("s" + to_string(s_num));
